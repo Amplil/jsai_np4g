@@ -1,11 +1,11 @@
 %% 和文論文用のテンプレート
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 1. 和文原稿
- \documentclass[originalpaper]{jsaiart}     % 原著論文 Original Paper
-% \documentclass[blindreview]{jsaiart}      % 査読用
+% \documentclass[originalpaper]{jsaiart}     % 原著論文 Original Paper
+%\documentclass[blindreview]{jsaiart}      % 査読用
 %
 % \documentclass[shortpaper]{jsaiart}       % 速報論文 Short Paper
-% \documentclass[exploratorypaper]{jsaiart} % 萌芽論文 Exploratory Research Paper
+\documentclass[exploratorypaper]{jsaiart} % 萌芽論文 Exploratory Research Paper
 % \documentclass[Specialissue]{jsaiart}     % 特集 Special Issue
 % \documentclass[specialissue]{jsaiart}     % 小特集 Special Issue
 % \documentclass[interimreport]{jsaiart}    % 報告 An Interim Report
@@ -28,11 +28,11 @@
 
 \Vol{12}
 \No{1}
-\jtitle{和文タイトル}
+\jtitle{一般化のためのネットワークプログラミング}
 % \jtitle[柱用和文タイトル]{和文タイトル}
-\jsubtitle{和文サブタイトル}
-\etitle{Title in English}
-\esubtitle{英文サブタイトル}
+\jsubtitle{論理的推論によるビットNOT演算プログラムの獲得}
+\etitle{Network Programming for Generalization (NP4G)}
+\esubtitle{Getting a bitwise NOT operator's program by logical inference}
 
 \manyauthor % 著者が3名以下の場合はこの行を消すこと
 
@@ -43,30 +43,17 @@
 % 名前が長い場合は \name の代りに \longname を使う
 
 \author{%
- \name{著者1姓}{名}{Auther1 Roman Name}
- \affiliation{日本語所属名1}%
-     {Affiliation1 in English }%
-     {user1@ai-gakkai.or.jp, http://www.ai-gakkai.or.jp/~user1/}
+ \name{原}{匠一郎}{Shoichiro Hara}
+ \affiliation{名古屋市立大学}%
+     {Nagoya City University}%
+     {s.hara@nsc.nagoya-cu.ac.jp}
 \and
- \name{著者2姓}{名}{Auther2 Roman Name}
- \affiliation{日本語所属名2}%
-     {Affiliation2 in English}%
-     {user2@ai-gakkai.or.jp, http://www.ai-gakkai.or.jp/~user2/}
-\and
- \name{著者3姓}{名}{Auther3 Roman Name}
- \sameaffiliation{user3@ai-gakkai.or.jp, http://www.ai-gakkai.or.jp/~user3/}
-\and
- \longname{カタガナガキノ}{ナガイナガイナマエ}{VeryLong Roman Name}
- \sameaffiliation{user4@ai-gakkai.or.jp, http://www.ai-gakkai.or.jp/~user4/}
-\and
- \name{著者5姓}{名}{Auther5 Roman Name}
- \affiliation{日本語所属名1}%
-     {Affiliation1 in English}%
-     {user5@ai-gakkai.or.jp, http://www.ai-gakkai.or.jp/~user5/}
+ \name{渡邊}{裕司}{Yuji Watanabe}
+ \sameaffiliation{yuji@nsc.nagoya-cu.ac.jp}
 }
 
 \begin{keyword}
-キーワードとして，小文字（固有名詞や略語を除く）の英単語を2～5個指定
+logical inference, NP4G, GA, GP, GNP
 \end{keyword}
 
 \begin{summary}
@@ -78,19 +65,59 @@
 \maketitle
 
 \section{はじめに}
-引用の例\cite{latex,texbook}
-\section{従来の手法の問題点}
-\section{今回の改良点}
-\section{実験}
-\subsection{実験手法}
-\subsection{実験結果}
-\subsubsection{実験1}
-\subsubsection{実験2}
-\section{まとめ}
+引用の例\cite{latex,texbook}論理的推論
 
-\begin{acknowledgment}
-謝辞について
-\end{acknowledgment}
+人工知能の分野において、情報の構造を表現する方法がいくつも考案されてきたが、それらの最終目的でもある、論理的思考に基づいた自然言語の理解や、論理的推論による複雑な問題の解決は未だ困難である。また、古くからエキスパートシステムと呼ばれる、人間に代わって機械が問題を解決するシステムの研究が行われてきたが、その成功は限定的であり、万能な問題解決システムとは至っていない。また、このエキスパートシステムでは、定式化された知識を事前に情報システムに格納する作業が必要となるが、知識によっては定式化しにくく、あいまいなものもあり、そのような知識をいかにして情報システムに格納し操作すればよいかという問題がある。
+
+本研究では、論理的推論を行うことができる一般化のためのネットワークプログラミング(NP4G: Network Programming for Generalization)を提案する。
+\section{関連研究}
+\subsection{GP / GNP}
+類似研究として、GNP
+
+NP4GはGNPから遺伝的操作であることの意味をなくし（制限をなくし）、一般化のための手法であるという意味を付け加えたものであるといえる。
+
+終端ノード
+
+GP/GNPでは各ノードを単純な処理をする最小単位と考え、それらを木構造状またはネットワーク状に接続することによりプログラムを構築する。
+
+ネットワークにする理由
+\subsection{ニューラルネットワーク}
+ニューラルネットワークの手法では、確かに個々のデータの特徴の共通点を拾い出すことができるため、その点においては一般化ができると言えるが、その手続きはブラックボックス化されており、論理的な推論における一般化とは言えない。ニューラルネットワークでは学習に基づき推論を行うが、その推論の思考プロセスは見えにくく、論理的でない。
+
+ニューラルネットワークでは基本ネットワークの構成は変えられず、重みを変化させることで学習するが、NP4Gではネットワークの構成を変えることで、学習する。
+\subsection{本研究の目的}
+
+
+\section{提案手法}
+NP4G (Network Programming for Generalization)とは、教師データに基づき、ネットワークで表現されるプログラムを自動生成することで、論理的推論における一般化を行う手法である。
+
+教師データ（入力と出力のペア）に合致するネットワークを探索する。
+
+簡単な機能を持った複数のノード素子をネットワーク状に接続し、プログラムを記述することのできるモデル
+
+入力をある規則に従って変換し出力することのできるモデル
+
+ノード間の接続を教師データに合わせて変更することによって、教師データに合致するような処理のできるプログラムを得る。
+
+ネットワークを生成する。
+
+NP4G (Network Programming for Generalization)は論理的推論における一般化のモデル生成を目的とする。
+
+論理的推論における一般化に関しては初の試みであり、
+\subsection{自動定義関数(ADFs)}
+
+\subsection{段階的学習}
+
+\section{実験}
+\subsection{設定}
+NP4Gを用いて、ビットNOT演算プログラムを獲得する実験を行った。
+
+\subsection{与えられる関数}
+\subsection{結果}
+\subsubsection{得られたネットワーク}
+\section{おわりに}
+\subsubsection{今後の課題}
+チューリング完全
 
 \bibliography{btxsample}
 \bibliographystyle{jsai}
@@ -108,7 +135,7 @@
 % 著者の姓と名の間は半角スペースで区切る
 % 略歴は200字以内
 \begin{biography}
-\profile{m}{著者1姓 名}{著者1の略歴}
+\profile{m}{原　匠一郎}{著者1の略歴}
 %\profile*{m}{著者姓 名}{前掲\kern-.5zw （Vol.X，No.Y，p.Z）\kern-.5zw 参照．}
 \end{biography}
 
