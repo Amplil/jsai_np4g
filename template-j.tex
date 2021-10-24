@@ -15,6 +15,9 @@
 % \documentclass[invitedpaper]{jsaiart}     % 招待論文 Invited Paper
 %
 
+%\usepackage{graphics}
+\usepackage[dvipdfmx]{graphicx}
+
 %% ページ番号の指定，掲載時に学会の方で決定します．
 % \setcounter{page}{1}
 % \setcounter{volpage}{1}
@@ -34,7 +37,7 @@
 \etitle{Network Programming for Generalization (NP4G)}
 \esubtitle{Getting a bitwise NOT operator's program by logical inference}
 
-\manyauthor % 著者が3名以下の場合はこの行を消すこと
+% \manyauthor % 著者が3名以下の場合はこの行を消すこと
 
 %%% 著者名の注意点 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 所属先が同じ著者が連続する場合，その中の先頭の著者のみ \affiliation
@@ -53,7 +56,7 @@
 }
 
 \begin{keyword}
-logical inference, NP4G, GA, GP, GNP
+logical inference, understanding causality, NP4G, GA, GP, GNP
 \end{keyword}
 
 \begin{summary}
@@ -67,7 +70,9 @@ logical inference, NP4G, GA, GP, GNP
 \section{はじめに}
 引用の例\cite{latex,texbook}論理的推論
 
-人工知能の分野において，情報の構造を表現する方法がいくつも考案されてきたが，それらの最終目的でもある，論理的思考に基づいた自然言語の理解や，論理的推論による複雑な問題の解決は未だ困難である．また，古くからエキスパートシステムと呼ばれる，人間に代わって機械が問題を解決するシステムの研究が行われてきたが，その成功は限定的であり，万能な問題解決システムとは至っていない．また，このエキスパートシステムでは，定式化された知識を事前に情報システムに格納する作業が必要となるが，知識によっては定式化しにくく，あいまいなものもあり，そのような知識をいかにして情報システムに格納し操作すればよいかという問題がある．
+人工知能の分野において，情報の構造を表現する方法がいくつも考案されてきたが，それらの最終目的でもある，論理的思考に基づいた自然言語の理解や，論理的推論による複雑な問題の解決は未だ困難である．
+
+機械学習の発展における次の段階として，概念関係の理解は非常に重要である．
 
 本研究では，論理的推論を行うことができる一般化のためのネットワークプログラミング(NP4G: Network Programming for Generalization)を提案する．
 \section{関連研究}
@@ -81,10 +86,17 @@ NP4GはGNPから遺伝的操作であることの意味をなくし（制限を�
 GP/GNPでは各ノードを単純な処理をする最小単位と考え，それらを木構造状またはネットワーク状に接続することによりプログラムを構築する．
 
 ネットワークにする理由
-\subsection{ニューラルネットワーク}
+\subsection{ニューラルネットワーク（自動プログラミング）}
 ニューラルネットワークの手法では，確かに個々のデータの特徴の共通点を拾い出すことができるため，その点においては一般化ができると言えるが，その手続きはブラックボックス化されており，論理的な推論における一般化とは言えない．ニューラルネットワークでは学習に基づき推論を行うが，その推論の思考プロセスは見えにくく，論理的でない．
 
+ニューラルネットワークでは原因と効果や，なぜ関連性や相関があるのかを解釈できない．特に，創造や計画，推論を伴うタスクは得意としない．これと同様に，AIが学習を一般化することに限界がある．一般化の欠如は大きい問題である．
+
 ニューラルネットワークでは基本ネットワークの構成は変えられず，重みを変化させることで学習するが，NP4Gではネットワークの構成を変えることで，学習する．
+
+
+GPT3などの手法を用いた自動プログラミング
+
+
 \subsection{本研究の目的}
 
 
@@ -107,14 +119,40 @@ NP4G (Network Programming for Generalization)は論理的推論における一�
 \subsection{自動定義関数(ADFs)}
 
 \subsection{段階的学習}
+\subsection{提案手法を使う利点}
 
 \section{実験}
 \subsection{設定}
 NP4Gを用いて，ビットNOT演算プログラムを獲得する実験を行った．
 
 \subsection{与えられる関数}
+\subsubsection{div関数}
+\begin{figure*}[t]
+    \begin{center}
+        %\includegraphics[width=90mm]{ab0ex-mtphu.eps}
+        \includegraphics[width=50mm]{div.png}
+        %\epsfile{file=ab0ex-mtphu.eps,width=90mm}
+    \end{center}
+    \capwidth=50mm %
+    \caption{図の説明文... }
+\end{figure*}
+
+\subsubsection{sum関数}
+\subsubsection{equal関数}
+\subsubsection{制御ゲート関数}
 \subsection{結果}
 \subsubsection{得られたネットワーク}
+
+\begin{figure*}[t]
+    \begin{center}
+        %\includegraphics[width=90mm]{ab0ex-mtphu.eps}
+        \includegraphics[width=120mm]{network.jpg}
+        %\epsfile{file=ab0ex-mtphu.eps,width=90mm}
+    \end{center}
+    \capwidth=90mm %
+    \caption{図の説明文... }
+\end{figure*}
+
 \section{おわりに}
 \subsubsection{今後の課題}
 チューリング完全
@@ -135,7 +173,8 @@ NP4Gを用いて，ビットNOT演算プログラムを獲得する実験を行�
 % 著者の姓と名の間は半角スペースで区切る
 % 略歴は200字以内
 \begin{biography}
-\profile{m}{原　匠一郎}{著者1の略歴}
+\profile{s}{原 匠一郎}{2018年3月名城大学理工学部電気電子工学科卒業}
+\profile{n}{渡邊 裕司}{著者2の略歴}
 %\profile*{m}{著者姓 名}{前掲\kern-.5zw （Vol.X，No.Y，p.Z）\kern-.5zw 参照．}
 \end{biography}
 
