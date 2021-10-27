@@ -17,6 +17,7 @@
 
 %\usepackage{graphics}
 \usepackage[dvipdfmx]{graphicx}
+\usepackage{url}
 
 %% ページ番号の指定，掲載時に学会の方で決定します．
 % \setcounter{page}{1}
@@ -34,7 +35,7 @@
 \jtitle{一般化のためのネットワークプログラミング}
 % \jtitle[柱用和文タイトル]{和文タイトル}
 \jsubtitle{論理的推論によるビットNOT演算プログラムの獲得}
-\etitle{Network Programming for Generalization (NP4G)}
+\etitle{NP4G : Network Programming for Generalization}
 \esubtitle{Getting a bitwise NOT operator's program by logical inference}
 
 % \manyauthor % 著者が3名以下の場合はこの行を消すこと
@@ -60,13 +61,12 @@ logical inference, understanding causality, NP4G, GA, GP, GNP
 \end{keyword}
 
 \begin{summary}
-「ショートノート」は 200 ワード，それ以外は200～500 ワード
-以内の英文でsummaryを記す
+ In this study, I propose NP4G : Network Programming for Generalization. NP4G is available on GitHub\footnotemark[1].
 \end{summary}
 
 \begin{document}
 \maketitle
-
+\footnotetext[1]{https://github.com}
 \section{はじめに}
 初期の人工知能は特に論理的な推論や言語を使うことに焦点を当てていた．
 
@@ -76,21 +76,21 @@ logical inference, understanding causality, NP4G, GA, GP, GNP
 
 機械学習の発展における次の段階として，概念関係の理解は非常に重要である．
 
-
-
 本研究では，論理的推論を行うことができる一般化のためのネットワークプログラミング(NP4G: Network Programming for Generalization)を提案する．
+
+ソースコードはGitHubリポジトリで見ることができる\footnotemark[1]．
+
 \section{関連研究}
+本研究では，一般化のためのネットワークプログラミングを提案する．この目的と関連した研究として，(1)GP / GNP，(2)論理的推論に関する研究，(3)自動プログラミングに関する研究を紹介する．
 \subsection{GP / GNP}
 類似研究として，GNPが挙げられる．
-GPは木構造のみを扱うが，これをネットワークに拡張したものが遺伝的ネットワークプログラミング(GNP)である．
-
-NP4GはGNPから遺伝的操作であることの意味をなくし（制限をなくし），一般化のための手法であるという意味を付け加えたものであるといえる．
-
-終端ノード
+GPは木構造のみを扱うが，これをネットワークに拡張したものが遺伝的ネットワークプログラミング(GNP:Genetic Network Programming)である\cite{gnp}．
 
 GP/GNPでは各ノードを単純な処理をする最小単位と考え，それらを木構造状またはネットワーク状に接続することによりプログラムを構築する．
 
 ネットワークにする理由
+
+判定ノード，処理ノード，スタートノードに分類することができる．
 
 \subsection{論理的推論}
 代表的なものとして「帰納的な考え方」，「類推的な考え方」，「一般化の考え方」，「記号化の考え方」などがある\cite{saito:11}．
@@ -108,13 +108,15 @@ GP/GNPでは各ノードを単純な処理をする最小単位と考え，そ�
 \subsection{自動プログラミング}
 Logic Theorist\cite{LogicTheorist}は探索木とヒューリスティクスを利用し，人間の論理的推論を模倣することを意図して作られた．
 
-最近では，GPT3などの手法を用いた自動プログラミング
+最近では，GPT3\cite{gpt3}などの手法を用いた自動プログラミング
 
-\subsection{本研究の目的}
+プログラミングの補完機能
+一般に公開されている膨大なコードから学習をし，開発者の書こうとしているコードを予測して，その続きを提案するような機能も出てきている\cite{copilot}．
 
+これらは言語生成アルゴリズムであり，論理的推論によりコードを生成しているわけではない．
 
 \section{提案手法}
-NP4G (Network Programming for Generalization)とは，教師データに基づき，ネットワークで表現されるプログラムを自動生成することで，論理的推論における一般化を行う手法である．
+NP4G (Network Programming for Generalization) とは，教師データに基づき，ネットワークで表現されるプログラムを自動生成することで，論理的推論における一般化を行う手法である．
 
 教師データ（入力と出力のペア）に合致するネットワークを探索する．
 
@@ -128,11 +130,17 @@ NP4G (Network Programming for Generalization)とは，教師データに基づ�
 
 NP4G (Network Programming for Generalization)は論理的推論における一般化のモデル生成を目的とする．
 
-人工知能を使った論理的推論における一般化に関しては今のところ関連研究が見当たらない．
+NP4GはGNPから遺伝的操作であることの意味をなくし（制限をなくし），一般化のための手法であるという意味を付け加えたものであるといえる．
+
+人工知能を使った論理的推論における一般化に関しては今のところ関連研究が見当たらない．→論理的推論であるパターン推論の論文はある．
+\subsection{繰り返し処理}
 
 \subsection{自動定義関数(ADFs)}
-
+GPでは，プログラムの進化の際に高速化が望めるなどの理由から自動関数定義(ADFs:Automatically Defined Functions)\cite{adfs}が用いられる．ADFsはGPの性能を向上させる目的で，問題に存在するモジュール性を利用する方法である．
 \subsection{段階的学習}
+段階的にネットワークを得て，ADFsとしてネットワークを再利用することで，はじめから複雑なネットワークを得るときよりも速く学習をすることができる．
+ヒトの学習でも，最初は簡単なレベルの学習から始め，徐々に難易度を上げていくと，無理なく学習できる．
+
 \subsection{提案手法を使う利点}
 
 \section{実験}
@@ -141,7 +149,9 @@ NP4Gを用いて，ビットNOT演算プログラムを獲得する実験を行�
 
 \subsection{与えられる関数}
 \subsubsection{div関数}
-\begin{figure*}[t]
+スペースを区切りとして，文字列を分けリスト表記にする．
+
+\begin{figure}[t]
     \begin{center}
         %\includegraphics[width=90mm]{ab0ex-mtphu.eps}
         \includegraphics[width=50mm]{div.png}
@@ -149,13 +159,29 @@ NP4Gを用いて，ビットNOT演算プログラムを獲得する実験を行�
     \end{center}
     \capwidth=50mm %
     \caption{図の説明文... }
-\end{figure*}
+\end{figure}
+
+
 
 \subsubsection{sum関数}
+リストの要素を，スペースを挟んで結合し，1つの文字列にする．
+
 \subsubsection{equal関数}
+2つの入力ノードの値が一致するとき[TRUE]を出力する．それ以外は[FALSE]を出力する．
 \subsubsection{制御ゲート関数}
+入力のどちらかが[TRUE]である場合はもう片方のリンクの値を通し，それ以外は[NULL]を出力する．
+\subsubsection{制御NOTゲート関数}
+入力のどちらかが[FALSE]である場合はもう片方のリンクの値を通し，それ以外は[NULL]を出力する．
+
+\subsection{段階的学習の手順}
+1. 0の入力に対して1の出力を得るネットワークをadfsリストに登録する．
+2. 1の入力に対して0の出力を得るネットワークをadfsリストに登録する．
+3. 0の入力に対して1の出力，1の入力に対して0の出力を得るネットワークをadfsリストに登録する．
+
 \subsection{結果}
 \subsubsection{得られたネットワーク}
+\subsubsection{評価}
+平均を示す．
 
 \begin{figure*}[t]
     \begin{center}
@@ -168,8 +194,10 @@ NP4Gを用いて，ビットNOT演算プログラムを獲得する実験を行�
 \end{figure*}
 
 \section{おわりに}
-\subsubsection{今後の課題}
-チューリング完全
+一般化のためのネットワークプログラミング(NP4G)を提案した．NP4Gを使うことで，論理的推論によるビットNOT演算プログラムを獲得できることを示した．
+
+\subsection{今後の課題}
+チューリング完全であることを証明することができれば，広く自動プログラミングとして応用可能であることが理論的に示すことができる．
 
 \bibliography{btx_np4g}
 \bibliographystyle{jsai}
@@ -187,7 +215,7 @@ NP4Gを用いて，ビットNOT演算プログラムを獲得する実験を行�
 % 著者の姓と名の間は半角スペースで区切る
 % 略歴は200字以内
 \begin{biography}
-\profile{s}{原 匠一郎}{2018年3月名城大学理工学部電気電子工学科卒業}
+\profile{s}{原 匠一郎}{2018年3月名城大学理工学部電気電子工学科卒業．2020年3月名古屋市立大学大学院システム自然科学研究科博士前期課程 修了．現在，名古屋市立大学理学研究科博士後期課程在籍中}
 \profile{n}{渡邊 裕司}{著者2の略歴}
 %\profile*{m}{著者姓 名}{前掲\kern-.5zw （Vol.X，No.Y，p.Z）\kern-.5zw 参照．}
 \end{biography}
