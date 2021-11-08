@@ -62,7 +62,7 @@ logical inference, understanding causality, NP4G, GA, GP, GNP
 \end{keyword}
 
 \begin{summary}
- In this study, We propose NP4G : Network Programming for Generalization. NP4G is available on GitHub\footnotemark[1].
+ In this study, we propose NP4G : Network Programming for Generalization. NP4G is available on GitHub\footnotemark[1].
 \end{summary}
 
 \begin{document}
@@ -78,7 +78,7 @@ logical inference, understanding causality, NP4G, GA, GP, GNP
 
 本研究では，論理的推論を行うことができる一般化のためのネットワークプログラミング(NP4G: Network Programming for Generalization)を提案する．
 
-ソースコードはGitHubリポジトリで見ることができる\footnotemark[1]．
+ソースコードはGitHubで見ることができる\footnotemark[1]．
 
 \section{関連研究}
 本研究では，一般化のためのネットワークプログラミングを提案する．この目的と関連した研究として，(1)GP / GNP，(2)論理的推論に関する研究，(3)自動プログラミングに関する研究を紹介する．
@@ -118,7 +118,8 @@ Logic Theorist\cite{LogicTheorist}は探索木とヒューリスティクスを�
 これらは言語生成アルゴリズムであり，論理的推論によりコードを生成しているわけではない．
 
 \section{提案手法}
-NP4G (Network Programming for Generalization) とは，教師データに基づき，ネットワークで表現されるプログラムを自動生成することで，論理的推論における一般化を行う手法である．
+\subsection{NP4Gの基本概念}
+NP4Gは，教師データに基づき，ネットワークで表現されるプログラムを自動生成することで，論理的推論における一般化を行う手法である．NP4GはGNPの遺伝的（Genetic）な操作に限定せず，一般化のための手法であることを付け加えた手法であるといえる．GNPは遺伝的操作によりプログラムを自動生成できる機能を持つ．
 
 教師データ（入力と出力のペア）に合致するネットワークを探索する．
 
@@ -135,14 +136,20 @@ NP4G (Network Programming for Generalization)は論理的推論における一�
 NP4GはGNPから遺伝的操作であることの意味をなくし（制限をなくし），一般化のための手法であるという意味を付け加えたものであるといえる．
 
 人工知能を使った論理的推論における一般化に関しては今のところ関連研究が見当たらない．→論理的推論であるパターン推論の論文はある．
-\subsection{繰り返し処理}
+\subsection{NP4Gの基本構造}
+NP4Gは[]のように，複数の関数がネットワーク状に接続された構造を持つ．入力として接続されるリンクの数は関数によって違うが，出力のリンクの数は関数によらず何本でも接続できる．GP,GNPでは，エージェントの行動をシミュレートする目的で使用する場合，処理ノードで
+遅れ時間が設定されることがあるが[]，
+NP4Gでは，入力と出力データのペアである教師データをもとに推論を行うモデルであるため，遅れ時間を設定する必要はない．
+入力データを持つスタートノードから処理が始まり，出力リンクをたどり，順番に関数が実行され，最後に実行された関数の出力が，そのネットワーク全体の出力となる．
 
+\subsection{繰り返し処理}
+より柔軟性の高い構造にするためには，繰り返し処理を行う必要がある．NP4Gでは，ネットワークを再帰的な構造にして実現するのではなく，イテラブルなデータ構造を関数に処理させることで実現する．繰り返し処理が必要な箇所では，関数がイテラブルなデータ構造を生成することで，繰り返し処理がなされる．
 
 \subsection{自動定義関数(ADFs)}
 GPでは，プログラムの進化の際に高速化が望めるなどの理由から自動関数定義(ADFs:Automatically Defined Functions)\cite{adfs}が用いられる．ADFsはGPの性能を向上させる目的で，問題に存在するモジュール性を利用する方法である．
 \subsection{段階的学習}
 段階的にネットワークを得て，ADFsとしてネットワークを再利用することで，はじめから複雑なネットワークを得るときよりも速く学習をすることができる．
-ヒトの学習でも，最初は簡単なレベルの学習から始め，徐々に難易度を上げていくと，無理なく学習できる．
+人間の学習でも，最初は簡単なレベルの学習から始め，徐々に難易度を上げていくと，無理なく学習できる．
 
 \subsection{提案手法を使う利点}
 いわゆる一般化をすることができる．論理的推論によってプログラムを自動生成するため，論理的でない推論である手法と比べて，一般化をするために必要な教師データの数は数個程度と非常に少なく済む．ニューラルネットワークとは違い，構築されたプログラム自体がネットワークの形になっているため，どのような処理をしているのか明らかである．
@@ -184,14 +191,13 @@ NP4Gを用いて，ビットNOT演算プログラムを獲得する実験を行�
 2. 1の入力に対して0の出力を得るネットワークをadfsリストに登録する．
 3. 0の入力に対して1の出力，1の入力に対して0の出力を得るネットワークをadfsリストに登録する．
 
-\section{実験}
 ビットNOT演算プログラムを自動で構築するプログラムを10回実行する．
-\subsection{結果}
-実験の結果を\ref{tbl:result}に示す．
+\section{結果と考察}
+結果を\ref{tbl:result}に示す．
 
 \begin{table}[htbp]
 \centering
-\caption{実験結果}
+\caption{結果}
 \label{tbl:result}
 \begin{tabular}{cc}
     \hline
