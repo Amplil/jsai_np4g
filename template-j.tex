@@ -18,7 +18,7 @@
 %\usepackage{graphics}
 \usepackage[dvipdfmx]{graphicx}
 \usepackage{url}
-%\usepackage[dvipdfmx]{profile-2e}
+\usepackage{profile-2e}
 
 %% ページ番号の指定，掲載時に学会の方で決定します．
 % \setcounter{page}{1}
@@ -71,13 +71,14 @@ inductive inference, automatic programming, knowledge acquisition, Genetic Progr
 % YW: 書き直しを要求
 % 要約の3分の2が背景の説明であり本研究の説明が3分の1しかない．背景の説明は半分以下にまとめて，本研究で行ったことをもっと書くべき．
 % 二段落目を削って一段落目の最後に書いて背景は一段落だけとする．ビットNOT演算プログラムの獲得は一例であっても，本研究で行ったことであるため要約にも書くべき．
+% -> 背景は一段落だけにし，代わりにビットNOT演算プログラムの獲得の段落を増やしました．
 \begin{summary}
- Automatic programming has been actively studied for a long time by various approaches including genetic programming. In recent years, automatic programming using neural networks such as GPT-3 has been actively studied and is attracting a lot of attention. However, these methods are illogical inference based on experience by enormous learning, and their thinking process is unclear. Even with the method by logical inference with a clear thinking process, the system that automatically generates any programs has not yet been realized.
+ Automatic programming has been actively studied for a long time by various approaches including genetic programming. In recent years, automatic programming using neural networks such as GPT-3 has been actively studied and is attracting a lot of attention. However, these methods are illogical inference based on experience by enormous learning, and their thinking process is unclear. Even with the method by logical inference with a clear thinking process, the system that automatically generates any programs has not yet been realized. Especially, inductive inference, which is logical inference to generalize from each instance, is an important issue because it can make artificial intelligence acquire knowledge by itself.
  
- Automatic programming by logical reasoning is closely related to the knowledge acquisition of artificial intelligence because it is necessary to extract some problem-solving structure for realization. In research on knowledge acquisition of artificial intelligence, it is still a big issue that knowledge is difficult to formulate because it contains many contradictions and exceptions. Especially, inductive inference, which is logical inference to generalize from each instance, is an important issue because it can make artificial intelligence acquire knowledge by itself.
+ In this study, we propose NP4G: Network Programming for Generalization, which can automatically generate programs by inductive inference. Because this is a method that can realize "sequence", "selection", and "iteration" in programming, it is satisfy the conditions of the structured program theorem. So we expect that NP4G is a method automatically acquire any programs by inductive inference.
  
- In this study, we propose NP4G: Network Programming for Generalization, which can automatically generate programs by inductive reasoning. Because this is a method that can realize "sequence", "selection", and "iteration" in programming, it is satisfy the conditions of the structured program theorem. So we expect that NP4G is a method automatically acquire any programs by inductive reasoning.
- The source code of NP4G have been made available on GitHub\footnotemark[1].
+ As an example, we automatically construct a bitwise NOT operator's program from several teacher data by generalization using NP4G. It is just randomly selecting nodes and connecting them, but by adjusting the number of nodes and the number of phase of Phased Learning, we show a bitwise NOT operator's program is acquired in a comparatively short time and at a rate of about 7 in 10 running.
+ The source code of NP4G is available on GitHub as a public repository\footnotemark[1].
 \end{summary}
 
 \begin{document}
@@ -161,7 +162,7 @@ NP4Gは，1つ1つの事例（教師データ）に対して一般化を行う�
 \begin{figure}[t]
     \begin{center}
         %\includegraphics[width=90mm]{ab0ex-mtphu.eps}
-        \includegraphics[width=80mm]{summary.jpg}
+        \includegraphics[width=80mm]{summary.png}
         %\epsfile{file=ab0ex-mtphu.eps,width=90mm}
     \end{center}
     \capwidth=80mm %
@@ -184,14 +185,16 @@ NP4Gは，\ref{fig:sequence}のように，複数の関数やオブジェクト�
 \label{sec:sequence}
 \ref{fig:sequence}に示したNP4Gで生成されるネットワークの一例を用いて，ノードの実行順序を説明する．スタートノードから順にノードが処理されていくことで，構造化定理の「順次」を実現できる．
 
-まず，入力データを持つスタートノードに接続されているノードが，上から順に実行される．それらのノードがすべて実行されたら，それらのノードに接続されているノードも同様に上から順に実行される．ネットワークをデータ系列として捉えた場合，この上から順に実行する操作は，次に実行されるノードをリストとして並べ，前から順に実行する操作である．
+まず，入力データを持つスタートノードに接続されているノードが，\textcircled{\scriptsize 1}，\textcircled{\scriptsize 2}，\textcircled{\scriptsize 3}と，上から順に実行される．それらのノードがすべて実行されたら，それらのノードに接続されているノードも同様に上から順に\textcircled{\scriptsize 4}，\textcircled{\scriptsize 5}，\textcircled{\scriptsize 6}と実行される．ネットワークをデータ系列として捉えた場合，この上から順に実行する操作は，次に実行されるノードをリストとして並べ，前から順に実行する操作を意味する．
 
-次に，\ref{fig:sequence}の\textcircled{\scriptsize 4}のように，入力となる他のノードからの出力がまだない場合，「not yet」となり，出力されない．これは，\textcircled{\scriptsize 9}のように，スタートノードから派生しないノードがあった場合，実行されないことを意味する．
+ここで，\ref{fig:sequence}の\textcircled{\scriptsize 4}のように，入力となる他のノードからの出力がまだない場合，実行結果は「not yet」となり，出力されない．これは，\textcircled{\scriptsize 9}のように，スタートノードから派生しないノードがあった場合も，出力されないことを意味する．
+一方で，\textcircled{\scriptsize 6}の場合，直前に\textcircled{\scriptsize 5}が実行されており，入力となるノードの出力がすべて存在するため，出力される．
 % YW: 「already done」について疑問が生じた．
 % 上記の「not yet」の記述に従えば(4)の方は(7)の入力がないために実行されないが，(6)の方は(8)の入力がなくてもすでに実行されているために(8)は「already done」になるのか？(4)の方と(6)の方とで何が違うのか，図からは分からない．「already done」はどういうときに起こりうるのか？
-そして，\textcircled{\scriptsize 8}のように，すでに実行されているノードは，「already done」となり，再び計算されることはない．このようにして，次に処理されるノードがなくなるまで，各ノードが実行される．
+% -> (4)と(6)の違いや，(8)が「already done」となる理由がはっきりわかるように，各々の処理を詳しく説明しました．
+次に\textcircled{\scriptsize 7}，\textcircled{\scriptsize 8}，\textcircled{\scriptsize 9}と実行されるが，\textcircled{\scriptsize 8}の場合，このノードは既に\textcircled{\scriptsize 6}で出力されているため，実行結果は「already done」となり，再び出力されることはない．このようにして，次に処理されるノードがなくなるまで，各ノードが実行される．
 
-最終的に，最後に実行されたノードの出力が，そのネットワーク全体の出力となり，エンドノードに接続される．すなわち，エンドノードは元からネットワークに接続されているのではなく，ノードの実行順序の関係から事後的に決められる．
+最終的に，最後に出力されたノードが，そのネットワーク全体の出力を担い，エンドノードに接続される．すなわち，エンドノードは元からネットワークに接続されているのではなく，ノードの実行順序の関係から事後的に決められる．
 
 \begin{figure*}[t]
     \begin{center}
@@ -341,9 +344,10 @@ NP4GによるビットNOT演算プログラムの自動生成として，各段�
 \noindent
 と段階の数を変えて比較することで，段階的学習の影響を調べる．
 各段階で得られたネットワークは，Pythonのラムダ式を使ってADFsとしてリストに追加することで，次の段階で再利用可能にする．
-各段階の教師データに合致するようなネットワークを，予め与えられるノードとADFsをランダムに組み合わせることで探索する．
+各段階の教師データに合致するようなネットワークを，予め与えられる関数とオブジェクトノード，ADFsをランダムに組み合わせることで探索する．
 % YW: 以下の文でオブジェクトノード？スタートノードでは？図4で示しているので，説明は不要かも．
-%なお，各段階で学習に用いられる教師データの文字列は，ネットワークを構築するためのオブジェクトノードとして，予め与えられる．
+% -> オブジェクトノードも予め用意する必要があり，その場合何を用意すれば良いかの説明をするつもりでした．
+なお，オブジェクトノードも，予め与えられる関数と同様に予め用意する必要がある．オブジェクトノードの場合，各段階の学習で用いる教師データの入力と出力の文字列を両方とも，オブジェクトノードとして用意する．
 
 \subsubsection{検証}
 検証では，NP4Gのプログラムを10回実行し，その生成結果と実行時間の平均値を求める．生成結果は，探索して得られたネットワークが，期待する出力を得られる一般化されたネットワークであれば「成功」，そうでない場合は「失敗」，1回のプログラムの実行における制限時間内に生成されなかった場合は「超過」とする．
@@ -354,18 +358,25 @@ NP4GによるビットNOT演算プログラムの自動生成として，各段�
 % YW: 結果の表はこのままですか？それとも中間発表会のスライドで用いた結果をまとめた表にしますか？後者に変更するならば，結果の置き換えとそれにあわせて文章の修正が必要（9ページになってしまったことからもまとめた表の方がよいかも）
 % YW: 中間発表で追加した考察（ノード数と段階の数と実行時間の関係）が書かれていないので，それも含めて全体的に書き直しが必要
 % YW: 以下では，段落分けの修正だけを主に行った
-3段階から5段階まで段階的学習の段階の数を変化させたときの生成結果と実行時間の結果を\ref{tbl:result1}，\ref{tbl:result2}，\ref{tbl:result3}に示す．また，各段階における平均時間の結果を\ref{tbl:result4}に示す．
+% -> 中間発表で使った表に対して，平均時間だけでなく，最大，最小時間も追加することで，ばらつきがどれだけあるかがわかるようにしました．ただ，表3が横に長くなってしまいました．また，中間発表での考察の記述を踏まえて，全体的に書き直しました．
+段階の数とノード数を変化させたときのNP4Gのプログラムの実行結果を\ref{tbl:result1}に示す．実行結果は，「成功」，「失敗」，「超過」のそれぞれの数を並べて表示している．
+また，段階の数とノード数を変化させたときの，それぞれの実行時間(s)の，平均，最大，最小を\ref{tbl:result2}に示す．
+\ref{tbl:result1}，\ref{tbl:result2}から，4段階，ノード数20個のときが，成功した数も7個と多く，平均時間も1104.84(s)と比較的短いため，最も良い結果といえる．
 
-3段階から5段階までのすべての生成結果を見ると，失敗したネットワーク（教師データの条件はすべて満たすが検証データを満たさない）は段階的学習が4段階，ノード数が10個のときの1例のみだった．
+\ref{tbl:result1}からわかるように，失敗したネットワークは4段階，ノード数10個のときの1例のみだった．
 %時間内に終わりやすいのは，段階的学習が3段階，ノード数が10個のときだった．
 また，ノード数5のときの結果を見ると，5段階のときの成功の1例のみを除いて，すべて時間超過となった．
+これはノード数が5個だと，ビットNOT演算プログラムを生成するにはノードが少なすぎたためであると考えられる．一方でノード数が20個のときのように，ノード数が多いときに，時間超過になる数が増える傾向があるのは，ノード数が増える分，ネットワークの生成に時間がかかるためであると考えられる．次に，\ref{tbl:result2}で段階の数ごとの平均時間を見てみると，3段階の平均時間が，長い傾向にあることがわかるが，これは，3段階の場合，段階を踏む数が少ないため，1度で複雑なネットワークを作る必要が出てくるためであると考えられる．また，4段階よりも5段階の方が，平均時間が長い傾向にあるのは，段階を増やし過ぎれば，その分，余分に時間がかかるためであると考えられる．
 
-\ref{fig:out_net_p5n5}に5段階ノード数5での自動生成によって「成功」したネットワークを示す．このネットワークのように，ノード数が少ない場合でも，期待するネットワークが得られることがわかった．
+\ref{fig:out_net_p5n5}に，ノード数5での自動生成によって唯一成功した5段階，ノード数5のネットワークを示す．このネットワークのように，ノード数が少ない場合でも，期待するネットワークが得られることがわかった．
+段階1で0の入力に対して1の出力となるネットワークを自動生成したあとに，段階2でadf1として使われており，段階2で作られたネットワークは段階3でadf2として使われていることがわかる．段階4では，adf3を使って，\ref{fig:bitwise_not}でビットNOT演算の実現例として挙げたようなネットワークがすでにできていることがわかる．
 さらに，このネットワークの場合，段階4の時点でビットNOT演算プログラムが得られていることを確認している．このように，段階的学習の途中でも期待するネットワークが得られることがわかった．
 
-\ref{fig:out_net_p4n10}に4段階ノード数10での自動生成によって，学習に用いた教師データと入出力は一致したが，期待と異なるプログラムが得られたときのネットワークを示す．このネットワークの場合，”0 1 0”の入力に対して“0 1 1”となり，“1 0 1”でない出力となった．このように，教師データと入出力が一致するネットワークが生成されたとしても，期待するネットワークが得られない場合もあることがわかった．この場合でも，段階を増やし，(”0 1 0”,“1 0 1”)の教師データも含めた教師データによって学習することで，期待するネットワークが得られると考えられる．また，ネットワークを構築する際はランダムにノードを選択するため，\ref{fig:out_net_p4n10}の段階2や段階4からも，必ずしも前の段階で生成されたADFsであるadf1やadf3を使うとは限らないことがわかる．
+\ref{fig:out_net_p4n10}に4段階，ノード数10での自動生成によって，失敗したときのネットワークを示す．このように，複雑なネットワークになってしまったため，教師データに対してはすべて一致する出力は出るものの，検証データで，不一致になる出力が出てきてしまったと考えられる．このネットワークの場合，”0 1 0”の入力に対して“0 1 1”となり，“1 0 1”でない出力となった．この場合でも，段階を増やし，(”0 1 0”,“1 0 1”)も含めた教師データによって学習することで，期待するネットワークが得られると考えられる．また，ネットワークを構築する際はランダムにノードを選択するため，\ref{fig:out_net_p4n10}の段階2や段階4からも，必ずしも前の段階で生成されたADFsであるadf1やadf3を使うとは限らないことがわかる．
+\ref{fig:out_net_p5n5}，\ref{fig:out_net_p4n10}の実際の検証で得られたネットワークを見てわかるように，NP4Gは，ニューラルネットワークを用いた手法とは違い，思考プロセスが明瞭である．
 
-\ref{tbl:result4}からわかるように，段階3の学習時間が2585.24(s)と最も高くなっている．この原因は，段階3が「(“0”,”1”), (”1”,“0”)」の学習であり，1つのネットワークで初めて，2つの条件を満たすネットワークを探索する必要があることから，学習コストが高くなったためと考えられる．
+各段階における生成時間を\ref{tbl:result3}に示す．この表から，段階1,2での生成時間が他の段階と比べ短いことがわかる．これは，段階1,2ともに教師データが1組だけの学習であることから，ランダムなネットワークの生成であっても，教師データに合致するネットワークが見つかりやすいためであると考えられる．
+次に，段階3での生成時間の平均が2585.24(s)と最も高くなっており，その次に段階4が，その次に段階5が高いことがわかる．これらの要因を考える．まず段階3の場合，教師データ(“0”,”1”), (”1”,“0”)の学習であり，1つのネットワークで初めて，2つの条件を満たすネットワークを探索する必要があることから，複雑なネットワークを生成する必要があったためであると考えられる．段階4の場合，複雑なネットワークは必要とされないが，段階4で初めて繰り返し処理を必要とするネットワークを生成する必要があったため，学習コストが高くなったと考えられる．段階5の場合，繰り返し処理を習得したあとは，桁が増えたとしても，同じネットワークで対応できるため，学習コストを低く抑えることができたと考えられる．
 
 %\begin{table}[htbp]
 %\centering
@@ -375,63 +386,50 @@ NP4GによるビットNOT演算プログラムの自動生成として，各段�
 %\end{table}
 
 \begin{table}[htbp]
-\caption{3段階の段階的学習の生成結果と実行時間(s)}
+\caption{実行結果（成功 / 失敗 / 超過）}
 \label{tbl:result1}
 \begin{tabular}{c|cccc}
     ノード数&	5&	10&	15&	20\\
     \hline \hline
-    成功&	0&	8&	6&	2\\
-    失敗&	0&	0&	0&	0\\
-    超過&	10&	2&	4&	8\\
-    \hline
-    平均時間&	- &	3067.23&	5564.88&	3699.22\\
-    最大時間&	- &	10480.28&	8966.41&	9542.54\\
-    最小時間&	- &	258.23&	1.19&	3.24\\
+    3段階&	0 / 0 / 10&	8 / 0 / 2&	6 / 0 / 4&	2 / 0 / 8\\
+    4段階&	0 / 0 / 10&	7 / 1 / 2&	6 / 0 / 4&	7 / 0 / 3\\
+    5段階&	1 / 0 / 9&	6 / 0 / 4&	7 / 0 / 3&	5 / 0 / 5\\
     \hline
 \end{tabular}
 \end{table}
 
 \begin{table}[htbp]
-\caption{4段階の段階的学習の生成結果と実行時間(s)}
+\caption{実行時間 (s)}
 \label{tbl:result2}
-\begin{tabular}{c|cccc}
-    ノード数&	5&	10&	15&	20\\
+\begin{tabular}{c|crrrrr}
+    ノード数& & 5&	10&   15&	 20\\
     \hline \hline
-    成功&	0&	7&	6&	7\\
-    失敗&	0&	1&	0&	0\\
-    超過&	10&	2&	4&	3\\
+         & 平均& -&  3067.23& 5564.88&  3699.22\\
+    3段階& 最大& -& 10480.28& 8966.41&  9542.54\\
+         & 最小& -&   258.23&    1.19&	  3.24\\
     \hline
-    平均時間&	-&	3023.63&	334.40&	1104.84\\
-    最大時間&	- &	8293.86&	1102.60&	2834.49\\
-    最小時間&	- &	133.70&	6.46&	9.77\\
+         & 平均& -&  3023.63&   334.40& 1104.84\\
+    4段階& 最大& -&  8293.86&  1102.60& 2834.49\\
+         & 最小& -&   133.70&     6.46&    9.77\\
+    \hline
+         & 平均& 32.18&  4089.67&  1505.77& 1265.54\\
+    5段階& 最大& 32.18&  9103.33&  7866.33& 2585.50\\
+         & 最小& 32.18&     0.75&     2.29&   26.04\\
     \hline
 \end{tabular}
 \end{table}
 
 \begin{table}[htbp]
-\caption{5段階の段階的学習の生成結果と実行時間(s)}
+\caption{各段階における生成時間(s)}
 \label{tbl:result3}
-\begin{tabular}{c|cccc}
-    ノード数&	5&	10&	15&	20\\
-    \hline \hline
-    成功&	1&	6&	7&	5\\
-    失敗&	0&	0&	0&	0\\
-    超過&	9&	4&	3&	5\\
-    \hline
-    平均時間&	32.18&	4089.67&	1505.77&	1265.54\\
-    最大時間&	32.18&	9103.33&	7866.33&	2585.50\\
-    最小時間&	32.18&	0.75&	2.29&	26.04\\
-    \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[htbp]
-\caption{各段階における平均時間(s)}
-\label{tbl:result4}
-\begin{tabular}{c|ccccc}
+\begin{tabular}{c|rrrrr}
     段階&	1&	2&	3&	4&	5\\
     \hline
-    平均時間&	1.17&	2.24&	2585.24&	188.31&	12.49\\
+    \hline
+    平均&	1.17&	2.24&	2585.24&	188.31&     12.49\\
+    最大&	6.94&	24.20&	10425.58&	1114.09&	347.02\\
+    最小&	0.00&	0.00&	0.53&	    3.95&	    0.03\\
+    \hline
 \end{tabular}
 \end{table}
 
@@ -505,9 +503,9 @@ NP4Gは構造化定理の条件を満たすことを説明したが，NP4Gが任
 % 著者の姓と名の間は半角スペースで区切る
 % 略歴は200字以内
 \begin{biography}
-\profile{s}{原 匠一郎}{2018年3月名城大学理工学部電気電子工学科卒業．2020年3月名古屋市立大学大学院システム自然科学研究科博士前期課程 修了．現在，名古屋市立大学大学院理学研究科博士後期課程在籍中．情報処理学会会員．}
+\profile{s}{原 匠一郎}{2018年3月名城大学理工学部電気電子工学科卒業．2020年3月名古屋市立大学大学院システム自然科学研究科博士前期課程 修了．現在，名古屋市立大学大学院理学研究科博士後期課程在籍中．情報処理学会会員．}{prof1}
 % YW:略歴を追記
-\profile{n}{渡邊 裕司}{1994年3月名古屋大学工学部電子機械学科卒業．1998年12月同大学院工学研究科電子情報学専攻博士後期課程修了．博士（工学）．1999年豊橋技術科学大学知識情報工学系助手．2005年名古屋市立大学大学院システム自然科学研究科講師．現在は同大学院理学研究科准教授．人工知能，生体認証，センサネットワーク，プログラミング教育の研究に従事．電子情報通信学会，情報処理学会，計測自動制御学会，IEEE，各会員．}
+\profile{n}{渡邊 裕司}{1994年3月名古屋大学工学部電子機械学科卒業．1998年12月同大学院工学研究科電子情報学専攻博士後期課程修了．博士（工学）．1999年豊橋技術科学大学知識情報工学系助手．2005年名古屋市立大学大学院システム自然科学研究科講師．現在は同大学院理学研究科准教授．人工知能，生体認証，センサネットワーク，プログラミング教育の研究に従事．電子情報通信学会，情報処理学会，計測自動制御学会，IEEE，各会員．}{prof1}
 %\profile*{m}{著者姓 名}{前掲\kern-.5zw （Vol.X，No.Y，p.Z）\kern-.5zw 参照．}
 \end{biography}
 
