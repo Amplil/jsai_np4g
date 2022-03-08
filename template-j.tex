@@ -73,7 +73,7 @@ inductive inference, automatic programming, knowledge acquisition, Genetic Progr
 % 二段落目を削って一段落目の最後に書いて背景は一段落だけとする．ビットNOT演算プログラムの獲得は一例であっても，本研究で行ったことであるため要約にも書くべき．
 % -> 背景は一段落だけにし，代わりにビットNOT演算プログラムの獲得の段落を増やしました．
 \begin{summary}
- Automatic programming has been actively studied for a long time by various approaches including genetic programming. In recent years, automatic programming using neural networks such as GPT-3 has been actively studied and is attracting a lot of attention. However, these methods are illogical inference based on experience by enormous learning, and their thinking process is unclear. Even with the method by logical inference with a clear thinking process, the system that automatically generates any programs has not yet been realized. Especially, inductive inference, which is logical inference to generalize from each instance, is an important issue because it can make artificial intelligence acquire knowledge by itself.
+ Automatic programming has been actively studied for a long time by various approaches including genetic programming. In recent years, automatic programming using neural networks such as GPT-3 has been actively studied and is attracting a lot of attention. However, these methods are illogical inference based on experience by enormous learning, and their thinking process is unclear. Even using the method by logical inference with a clear thinking process, the system that automatically generates any programs has not yet been realized. Especially, inductive inference, which is logical inference to generalize from each instance, is an important issue because it can make artificial intelligence acquire knowledge by itself.
  
  In this study, we propose NP4G: Network Programming for Generalization, which can automatically generate programs by inductive inference. Because this is a method that can realize "sequence", "selection", and "iteration" in programming, it is satisfy the conditions of the structured program theorem. So we expect that NP4G is a method automatically acquire any programs by inductive inference.
  
@@ -286,8 +286,8 @@ NP4Gにおいて，教師データやスタートノード，オブジェクト�
 
 次に，同図の右上に示すように，このネットワークをADFsとして次のネットワークの構築に再利用できる形にする．図では「not」を四角で囲い表記する．
 % YW: 図の説明をより詳しく行う
-そして，複数ビットを入力とする次の段階において，イテラブルなデータ（リスト）の繰り返し処理とADFsの論理notを用いることにより，ビットNOT演算プログラムを構築する．
-複数ビットの入力文字列をsplit関数でリストにし，個々の要素に対してADFsである論理notを繰り返し適用し，ばらばらの文字列をsum関数で結合し，複数ビットの論理notを実現する．
+そして，複数ビットを入力とする次の段階において，イテラブルなデータ（リスト）の繰り返し処理とADFsの「not」を用いることにより，ビットNOT演算プログラムを構築する．
+複数ビットの入力文字列をsplit関数でリストにし，個々の要素に対してADFsである「not」を繰り返し適用し，ばらばらの文字列をsum関数で結合し，複数ビットの論理notを実現する．
 このように段階を踏んでネットワークを構築する段階的学習を行うことで，目的のプログラムを実現する．
 
 \subsection{検証方法}
@@ -342,7 +342,7 @@ NP4GによるビットNOT演算プログラムの自動生成として，各段�
     \item 5段階：段階1，2，3，4，5
 \end{itemize}
 \noindent
-と段階の数を変えて比較することで，段階的学習の影響を調べる．
+と段階の数を変えて比較する．
 各段階で得られたネットワークは，Pythonのラムダ式を使ってADFsとしてリストに追加することで，次の段階で再利用可能にする．
 各段階の教師データに合致するようなネットワークを，予め与えられる関数とオブジェクトノード，ADFsをランダムに組み合わせることで探索する．
 % YW: 以下の文でオブジェクトノード？スタートノードでは？図4で示しているので，説明は不要かも．
@@ -359,9 +359,9 @@ NP4GによるビットNOT演算プログラムの自動生成として，各段�
 % YW: 中間発表で追加した考察（ノード数と段階の数と実行時間の関係）が書かれていないので，それも含めて全体的に書き直しが必要
 % YW: 以下では，段落分けの修正だけを主に行った
 % -> 中間発表で使った表に対して，平均時間だけでなく，最大，最小時間も追加することで，ばらつきがどれだけあるかがわかるようにしました．ただ，表3が横に長くなってしまいました．また，中間発表での考察の記述を踏まえて，全体的に書き直しました．
-段階の数とノード数を変化させたときのNP4Gのプログラムの実行結果を\ref{tbl:result1}に示す．実行結果は，「成功」，「失敗」，「超過」のそれぞれの数を並べて表示している．
+段階の数とノード数を変化させたときのNP4Gのプログラムの実行結果を\ref{tbl:result1}に示す．実行結果は，「成功」，「失敗」，「超過」のそれぞれの数を並べて表示する．
 また，段階の数とノード数を変化させたときの，それぞれの実行時間(s)の，平均，最大，最小を\ref{tbl:result2}に示す．
-\ref{tbl:result1}，\ref{tbl:result2}から，4段階，ノード数20個のときが，成功した数も7個と多く，平均時間も1104.84(s)と比較的短いため，最も良い結果といえる．
+\ref{tbl:result1}，\ref{tbl:result2}から，4段階，ノード数20個のときが，成功した数も7個と多く，平均時間も1105sと比較的短い．また，4段階，ノード数15個のときは，成功数は6個であるが，平均時間は334sと最も短い．これらが最も良い結果といえる．
 
 \ref{tbl:result1}からわかるように，失敗したネットワークは4段階，ノード数10個のときの1例のみだった．
 %時間内に終わりやすいのは，段階的学習が3段階，ノード数が10個のときだった．
