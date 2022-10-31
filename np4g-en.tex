@@ -38,13 +38,11 @@
 
 \author{
   Shoichiro Hara \\
-  Graduate School of Science \\
   Nagoya City University \\
   \texttt{s.hara@nsc.nagoya-cu.ac.jp} \\
   %% examples of more authors
    \And
   Yuji Watanabe \\
-  Graduate School of Science \\
   Nagoya City University \\
   \texttt{yuji@nsc.nagoya-cu.ac.jp} \\
   %% \AND
@@ -116,7 +114,7 @@ In addition, by generation of the automatic programming by the logical reasoning
 The logical reasoning is deduction (mark) reasoning, induction (mark) reasoning, \cite{math300}. comprised of three of the analogical inference (mark) reasoning in a wide sense
 As a representative thing of the logical thought, "an inductive way of thinking", is \cite{saito:11}. with "a way of thinking of the encoding" "a way of thinking of the generalization" "an analogy-like way of thinking"
 Of these, it is "a way of thinking of the generalization" to be equivalent to inductive reasoning.
-\cite {inductive reasoning} which is the reasoning to arrive at a general rule to explain that from given data with inductive reasoning (inductive inference).
+\cite {inductive-reasoning} which is the reasoning to arrive at a general rule to explain that from given data with inductive reasoning (inductive inference).
 The inductive reasoning with the artificial intelligence is studied for a long time, but \cite{CASE1983193}\cite{4767034}, coverage are restrictive, and a task is left in any program.
 In addition, connection is deep with the study of the acquirement of knowledge because the inductive reasoning with the artificial intelligence can say that it is a method to acquire knowledge automatically.
 There are the things which contradict it between rules even if I formulated a lot of things which I cannot formulate in the knowledge and I say such a problem with an acquirement of knowledge problem and am not still solved \cite{KnowledgeAI}\cite{KAIssues}.
@@ -150,7 +148,7 @@ As well as GP/GNP, I can expect expansion to the effective algorithm by the comb
 \includegraphics[width=80mm]{summary.png}
 \end{center}
 %\capwidth=80mm %
-\caption {generalization from teacher data}
+\caption {Generalization from teacher data}
 \label{fig:summary}
 \end{figure}
 \subsection {Structured Theorem}
@@ -203,7 +201,7 @@ It is technique to let you learn it without unreasonableness even if it is a com
 In NP4G, I reduce the number of teacher data letting, at first, you learn it, and a network taking a simple step starts with being produced.
 And I reuse a produced network when I build a network next as ADFs.
 I can hope that I learn it in a shorter time than time by to do it this way, get a complicated network from the beginning.
-\section {Acquisition of bitwise NOT operator's program}
+\section {Acquisition of a bitwise NOT operator's program}
 I think about a case to automatically build a bitwise NOT operator's program to be concrete and, using NP4G, inspect it by actually executing a program of NP4G.
 I program NP4G using Python(Python 3.7.12) that is a programming language in this study.
 As practice environment, I use Colaboratory of Google.
@@ -261,7 +259,7 @@ I build logic not of 1 bit as a network by outputting "and" 0 ".
 \includegraphics[width=150mm]{bitwise_not.png}
 \end{center}
 %\capwidth=130mm %
-Implementation of the bit NOT operation program by \caption{NP4G}
+Implementation of a bit NOT operation program by \caption{NP4G}
 \label{fig:bitwise_not}
 \end{figure*}
 Then, I do it in the form that the construction of the next network can reuse this network as ADFs to show it in the top right corner of the figure.
@@ -296,19 +294,19 @@ At first, I put an end node, and only the number of the nodes that I was able to
 Here, I prepare for a stage to use it by phased learning until 5 for a stage from 1 for a stage and by changing the pair of each stage, check influence of the phased learning.
 Five teacher data at the stage to use by phased learning are as follows.
 \begin{itemize}
-\item stage 1:
-\item stage 2:
-\item stage 3 ("1", "0"):
-\item stage 4 ("1", "0") ("0 0", "1 1"):
-\item stage 5 ("1", "0"), ("0 0", "1 1") ("0 1 0", "1 0 1"):
+\item Phase 1:("0", "1")
+\item Phase 2:("1", "0")
+\item Phase 3:("0", "1"), ("1", "0")
+\item Phase 4 ("1", "0"), ("0 0", "1 1"):
+\item Phase 5 ("1", "0"), ("0 0", "1 1") ("0 1 0", "1 0 1"):
 \end{itemize}
-And these each stage
+And 3 each phases
 \begin{itemize}
-\item three phases:
+\item 3 phases:
 Stage 2, 3, 4
-\item four phases:
+\item 4 phases:
 Stage 1, 2, 3, 4
-\item five phases:
+\item 5 phases:
 Stage 1, 2, 3, 4, 5
 \end{itemize}
 \noindent
@@ -357,7 +355,7 @@ At first, it is thought that this is because it was necessary to generate a comp
 In the case of 4, the complicated network is not required for a stage, but it is thought that generation time got longer as it was necessary to generate the network which is repeated for the first time in 4 for a stage, and needs processing.
 It is thought that I was able to control generation time briefly because I can cope in the same network even if figures increased after having learned iteration in the case of 5 for a stage.
 \begin{table}[htbp]
-\caption {practice result (success/failure/excess)}
+\caption {Practice result (success/failure/excess)}
 \label{tbl:result1}
 \begin{tabular}{c|cccc}
 Number of the nodes &
@@ -385,7 +383,7 @@ Five phases of &
 \end{tabular}
 \end{table}
 \begin{table}[htbp]
-\caption {execute time (s)}
+\caption {Execute time (s)}
 \label{tbl:result2}
 \begin{tabular}{c|crrrrr}
 Number of the nodes & & 5&
@@ -419,7 +417,7 @@ Smallest & 32&
 \end{tabular}
 \end{table}
 \begin{table}[htbp]
-\caption {generation time (s) in each stage}
+\caption {Generation time (s) in each stage}
 \label{tbl:result3}
 \begin{tabular}{c|rrrrr}
 Stage &
@@ -456,7 +454,7 @@ Smallest &
 \includegraphics[width=150mm]{out_net_p5n5.png}
 \end{center}
 %\capwidth=130mm %
-\caption {network when a program to expect by automatic generation with the number of five phases of nodes 5 was provided}
+\caption {Network when a program to expect by automatic generation with the number of five phases of nodes 5 was provided}
 \label{fig:out_net_p5n5}
 \end{figure*}
 \begin{figure*}[t]
@@ -464,7 +462,7 @@ Smallest &
 \includegraphics[width=150mm]{out_net_p4n10.png}
 \end{center}
 %\capwidth=130mm %
-\caption {network when the input and output accorded with the teacher data which I used for learning by automatic generation with the number of four phases of nodes 10, but the program that was different from expectation was provided}
+\caption {Network when the input and output accorded with the teacher data which I used for learning by automatic generation with the number of four phases of nodes 10, but the program that was different from expectation was provided}
 \label{fig:out_net_p4n10}
 \end{figure*}
 \section {Conclusion}
