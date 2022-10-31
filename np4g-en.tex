@@ -185,37 +185,37 @@ In other words, the end node is not connected to the network from the cost and c
 A fabric and order of practice of \caption{NP4G}
 \label{fig:sequence}
 \end{figure*}
-\subsubsection {repeated processing}
-It is necessary to introduce "repetition" to meet a structured theorem.
-I realize it by letting a function input the data which are iterable not realizing repeated processing by making feedback loop on the network in NP4G.
+\subsubsection {Iteration}
+It is necessary to introduce "iteration" to meet a structured theorem.
+I realize it by letting a function input the data which are iterable not realizing iteration by making feedback loop on the network in NP4G.
 The function that the data which are iterable were given as input carries out the same processing for each element of the data.
 A function performs the handling of data to return to the data which are not generation or iterable which are iterable, and I repeat it as far as the data which are iterable are used as input of the function, and processing is done.
-I can realize repetition without a program without by doing it this way, falling into an infinite loop, and being finished being made.
+I can realize iteration without a program without by doing it this way, falling into an infinite loop, and being finished being made.
 In addition, it becomes hard to cause an error when I put a node together at random and generate a program automatically as much as the order of practice of the node becomes concise.
-\subsubsection {automatic definition function (ADFs)}
+\subsubsection {Automatic Definition Function (ADFs)}
 By the GP, a definition function (ADFs: Automatically Defined Functions) automatic in the case of the evolution of the program speedup expecting it is used \cite{adfs}.
 ADFs makes possible by to reuse the network which was already completed, make a higher program within a short time.
-I register a network as ADFs every stage and, in NP4G, allow you to reuse the network at the next stage in combination with graded learning to explain ADFs in \ref{sec:PL}.
-\subsubsection {graded learning}
+I register a network as ADFs every stage and, in NP4G, allow you to reuse the network at the next stage in combination with phased learning to explain ADFs in \ref{sec:PL}.
+\subsubsection {Phased Learning}
 \label{sec:PL}
-It is technique to let you learn it without unreasonableness even if it is a complicated program by the graded learning (Phased Learning) distributing learning for each stage, and performing it.
-\cite{hodohara2012reinforcement}. where an effect by that the graded learning is technique used in reinforcement learning mainly and lowers the flexibility that I can take of the learning, prevents that learning time becomes enormous is seen in
+It is technique to let you learn it without unreasonableness even if it is a complicated program by the phased learning (Phased Learning) distributing learning for each stage, and performing it.
+\cite{hodohara2012reinforcement}. where an effect by that the phased learning is technique used in reinforcement learning mainly and lowers the flexibility that I can take of the learning, prevents that learning time becomes enormous is seen in
 In NP4G, I reduce the number of teacher data letting, at first, you learn it, and a network taking a simple step starts with being produced.
 And I reuse a produced network when I build a network next as ADFs.
 I can hope that I learn it in a shorter time than time by to do it this way, get a complicated network from the beginning.
-\section {acquisition of the bit NOT operation program}
-I think about a case to automatically build a bit NOT operation program to be concrete and, using NP4G, inspect it by actually executing a program of NP4G.
+\section {Acquisition of bitwise NOT operator's program}
+I think about a case to automatically build a bitwise NOT operator's program to be concrete and, using NP4G, inspect it by actually executing a program of NP4G.
 I program NP4G using Python(Python 3.7.12) that is a programming language in this study.
 As practice environment, I use Colaboratory of Google.
-In addition, as the data which are iterable to realize repeated processing, I use a list-shaped object (the following, list) on Python program.
+In addition, as the data which are iterable to realize iteration, I use a list-shaped object (the following, list) on Python program.
 In NP4G, all the data stored away in teacher data and a start node, an object node are character string.
-\subsection {function to be given beforehand}
+\subsection {Function to be given beforehand}
 The node to be given for a function to build a network beforehand assumes it four of split function, sum function, an equal function, the control gate function to show it in \ref{fig:func}.
 I explain the contents of each function as follows.
-\subsubsection{split function}
+\subsubsection{Split Function}
 As an end, I distribute character string and make space list notation.
 When I show it in a figure, I keep you and transcribe "split" in a square.
-\subsubsection{sum function}
+\subsubsection{Sum Function}
 I smooth it for list-shaped input and plural input including other character string and do it for one character string by catching it between character string in space, and being connected.
 Character string of the input is "[NULL]
 When is ", "[NULL]
@@ -223,14 +223,14 @@ When is ", "[NULL]
 When character string of the output is "" (the sky), "[NULL]
 It outputs ".
 When I show it in a figure, I keep you and transcribe "+" in a square.
-\subsubsection {equal function}
+\subsubsection {Equal Function}
 Time "[TRUE] where a value of two input accords
 It outputs ".
 Other than that, it is "[FALSE]
 It outputs ".
 I play a role as the judgment node in GP/GNP.
 When I show it in a figure, I keep you and transcribe "= =" in a square.
-\subsubsection {control gate function}
+\subsubsection {Control Gate Function}
 Among two input, either is "[TRUE]
 When is ", other than that, through a value of the other input, is "[NULL]
 It outputs ".
@@ -241,10 +241,10 @@ When I show it in a figure, I write it in Shiromaru.
 \includegraphics[width=110mm]{func.PNG}
 \end{center}
 %\capwidth=90mm %
-\caption {function to be given beforehand}
+\caption {Function to be given beforehand}
 \label{fig:func}
 \end{figure*}
-\subsection {example of the bit NOT operation program}
+\subsection {Example of a bitwise NOT operator's program}
 I show the example of the bit NOT operation program that is realized by using these four functions in \ref{fig:bitwise_not}.
 At first, I build the left upper network of the figure for input of 1 bit as the first stage.
 An equal function to have the start node that stored away object node and input "0" which stored away "0" for input is "[TRUE]
@@ -268,15 +268,15 @@ Then, I do it in the form that the construction of the next network can reuse th
 In the figure, I keep you and transcribe "not" in a square.
 And I build a bit NOT operation program by using repeated handling of data (list) which are iterable and "not" of ADFs during the next stage to assume plural bits input.
 I make the input character string of plural bits a list by split function and I repeat "not" which is ADFs for individual elements and apply it and connect scattered character string by sum function and realize logic not of the plural number bit.
-By performing graded learning to step on a stage in this way, and to build a network, realize an objective program.
-\subsection {inspection method}
+By performing phased learning to step on a stage in this way, and to build a network, realize an objective program.
+\subsection {Inspection Method}
 I choose the node at random and, for several teacher data, just tie it and inspect whether it is automatic, and you can acquire a bit NOT operation program by NP4G.
-\subsubsection {teacher data and random search}
-The teacher data to use are four to show in \ref{tbl:TeacherData}, and teacher data used at each stage by a method of the graded learning change.
+\subsubsection {Teacher data and Random search}
+The teacher data to use are four to show in \ref{tbl:TeacherData}, and teacher data used at each stage by a method of the phased learning change.
 In addition, I write a parenthesis like (input, the output), and each input and output of teacher data writes it.
 \begin{table}[htbp]
 \centering
-\caption {all of teacher data to use in this study}
+\caption {All of teacher data to use in this study}
 \label{tbl:TeacherData}
 \begin{tabular}{l}
 \hline
@@ -291,10 +291,10 @@ In addition, I write a parenthesis like (input, the output), and each input and 
 \end{table}
 I search for the network which is equal to these teacher data of each stage as automatic generation of the bit NOT operation program by NP4G by putting a node together at random.
 At first, I put an end node, and only the number of the nodes that I was able to decide chooses a node with a start node at random, and the random algorithm ties only the number of of the input of the function with other nodes at random next.
-\subsubsection {method of the graded learning}
+\subsubsection {Method of the phased learning}
 \label{sec:PLhow}
-Here, I prepare for a stage to use it by graded learning until 5 for a stage from 1 for a stage and by changing the pair of each stage, check influence of the graded learning.
-Five teacher data at the stage to use by graded learning are as follows.
+Here, I prepare for a stage to use it by phased learning until 5 for a stage from 1 for a stage and by changing the pair of each stage, check influence of the phased learning.
+Five teacher data at the stage to use by phased learning are as follows.
 \begin{itemize}
 \item stage 1:
 \item stage 2:
@@ -317,12 +317,12 @@ By adding it to a list using lambda expression of Python as ADFs, can reuse the 
 I search for the network which is equal to the teacher data of each stage by putting function and object node, ADFs given beforehand together at random.
 In addition, it is necessary for the object node to prepare like a function to be given beforehand beforehand.
 In the case of an object node, I prepare input of teacher data to use by the learning of each stage and both character string of the output as an object node.
-\subsubsection {inspection}
+\subsubsection {Inspection}
 By the inspection, I carry out ten times of programs of NP4G and seek the generation result and the mean of the execute time.
 When it is not generated "failure" before a time limit in the practice of one program when "success" is not so if the network which the generation result searches, and was provided is a generalized network to be able to get the output to expect from, I say with "excess".
 I check whether it is the output to expect by inputting all binary character string (from "0" "1 1 1 1 1") from one digit to five digits as inspection data.
 In addition, I do it with three hours (10,800 seconds) in a time limit in one practice.
-\section {a result and consideration}
+\section {Results and Consideration}
 I show the practice result of the program of NP4G when I changed a number and the number of the nodes of the stage in \ref{tbl:result1}.
 I arrange each number of "the excess", and, as for the practice result, "failure" shows "success".
 In addition, I show average, maximum, a minimum of each execute time (s) when I changed a number and the number of the nodes of the stage in \ref{tbl:result2}.
@@ -340,7 +340,7 @@ I show a network of the number of five phases of successful nodes 5 in \ref{fig:
 When there was little number of the nodes, like this network, it turned out that I could get a network to expect.
 After having generated a network becoming 1 output for 0 input in 1 for a stage automatically, it is used as adf1 in 2 for a stage, and, in the network made with 2 for a stage, it is revealed that it is used as adf2 by 3 for a stage.
 It is revealed that there is already the network which I nominated for an implementation of the bit NOT operation in \ref{fig:bitwise_not} by 4 using adf3 for a stage.
-A bit NOT operation program was provided at 4 for a stage, and, in the case of this network, it was revealed that a network but to expect was provided in the middle of graded learning.
+A bit NOT operation program was provided at 4 for a stage, and, in the case of this network, it was revealed that a network but to expect was provided in the middle of phased learning.
 Then, I show a network when I failed by automatic generation with the number of four phases of nodes 10 in \ref{fig:out_net_p4n10}.
 In this way, it is thought that the output becoming mismatched by the inspection data has come out to the output which fits all it for the teacher data although I appear because it has become the complicated network.
 In the case of this network, it became "0 1 1" for input of "0 1 0" and became the output which was not "1 0 1".
@@ -355,7 +355,7 @@ Then, average of the generation time in 3 gets longer most with 2585.24s for a s
 I think about these factors.
 At first, it is thought that this is because it was necessary to generate a complicated network because it is teacher data ("0" "1"), ("1", "0") learning, and it is necessary to search for a network meeting two conditions for the first time in one network in the case of 3 for a stage.
 In the case of 4, the complicated network is not required for a stage, but it is thought that generation time got longer as it was necessary to generate the network which is repeated for the first time in 4 for a stage, and needs processing.
-It is thought that I was able to control generation time briefly because I can cope in the same network even if figures increased after having learned repeated processing in the case of 5 for a stage.
+It is thought that I was able to control generation time briefly because I can cope in the same network even if figures increased after having learned iteration in the case of 5 for a stage.
 \begin{table}[htbp]
 \caption {practice result (success/failure/excess)}
 \label{tbl:result1}
@@ -467,30 +467,30 @@ Smallest &
 \caption {network when the input and output accorded with the teacher data which I used for learning by automatic generation with the number of four phases of nodes 10, but the program that was different from expectation was provided}
 \label{fig:out_net_p4n10}
 \end{figure*}
-\section {for the end}
-\subsection {significance of a summary and this study}
+\section {Conclusion}
+\subsection {Significance of a summary and this study}
 In this study, I suggested network programming (NP4G) for generalization.
 By using NP4G, chose the node at random and just tied it, but confirmed that I could acquire a bit NOT operation program from several teacher data.
 As NP4G is technique finding a general property from several examples, it is inductive reasoning.
 In addition, it has the structure that "a choice" meets the condition of the structured theorem "repeatedly" "sequentially" in the programming and is the technique that it can expect to acquire any program by inductive reasoning automatically.
 When the network programming not to be limited to hereditary technique shown by NP4G is applied as technique of the new automatic programming widely in the new field in future, I can hope.
 There is it at the point that showed that I can expect realization of the artificial intelligence which general-purpose, is flexible which learns the significance of this study for every knowledge by network programming by oneself, and makes use of the contents, and reasons for a different problem logically, and leads an answer.
-\subsection {future problem}
-\subsubsection {Turing integrity}
+\subsection {Issues}
+\subsubsection {Turing Integrity}
 Indicating NP4G having explained that meet the condition of the structured theorem, but NP4G being Turing perfection to prove that NP4G is technique to be provided by any program it is necessary.
 If Turing is complete, a certain calculation model has the computing power that is equal to all-around Turing machine, in other words, show what can reproduce any program.
 I mean that the technique that can get any program by inductive reasoning was able to be realized if I can show that Turing is complete.
 In addition, it is necessary to actually try whether you can automatically build not only the bit NOT operator but also other programs using NP4G.
-\subsubsection {exploring of the search technique}
+\subsubsection {Exploring of the search technique}
 In this study, I used an accidental search by the random generation as search technique of the network.
 A type and the number of nodes to use increase because this technique is a primitive, and time suffers from a search so that an objective program is complicated.
 I use reinforcement learning and by combining it with other learning technique, it is automatic and adjusts a type and a number, the way of the node deserving to be a component of the network of combining, and it will be necessary to plan efficiency of the network construction in future.
-\subsubsection {evaluation of the network}
+\subsubsection {Evaluation of the network}
 By hereditary technique and other learning technique including the reinforcement learning, it is provided with the mechanism that a number evaluates a generated network and model using evaluation function.
 In this study, it becomes the evaluation whether or not an objective network was produced, and there is not a number evaluation by the evaluation function.
 I can change the architectural way by the evaluation of the network in future if I can establish the evaluation method of the network in NP4G.
 In addition, it becomes easy to combine it with other learning technique using the evaluation function.
-\subsubsection {simplification of the produced network}
+\subsubsection {Simplification of the produced network}
 Even if a node was in the network in NP4G as explained in \ref{sec:sequence}, the node is not carried out when it is not a node to be derived from a start node.
 When such a node comes out, if there are any the algorithm that I remove after having produced a network, I can plan the simplification of the produced network.
 \section*{Acknowledgments}
