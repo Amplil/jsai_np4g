@@ -32,8 +32,8 @@
 \title{NP4G : Network Programming for Generalization
 %%%% Cite as
 %%%% Update your official citation here when published 
-\thanks{\textit{\underline{Citation}}: 
-\textbf{Authors. Title. Pages.... DOI:000000/11111.}} 
+%\thanks{\textit{\underline{Citation}}: 
+%\textbf{Authors. Title. Pages.... DOI:000000/11111.}} 
 }
 
 \author{
@@ -78,7 +78,7 @@
 % keywords can be removed
 \keywords{inductive inference \and automatic programming \and knowledge acquisition \and Genetic Programming \and Genetic Network Programming}
 
-
+\footnotetext[1]{https://github.com/Amplil/np4g}
 \section{Introduction}
 Automatic programming has been actively studied for a long time by various approaches includinggenetic programming.
 In recent years, automatic programming using neural networks such as GPT-3\cite{gpt3} has been actively studied and is attracting a lot of attention.
@@ -95,18 +95,18 @@ I show automatic programming, inductive reasoning, genetic programming as a rela
 I suggest network programming (NP4G) for generalization in three chapters and explain the fabric.
 I speak a method getting the bit NOT operation program for one of the suggestion technique in four chapters and I show the inspection result in five chapters and examine it.
 I show the significance of this study and a future problem in six chapters.
-In addition, \footnotemark[1]. where I open the source code of the program that I used in this study to the public on GitHub
+The source code of NP4G is available on GitHub as a public repository \footnotemark[1]. 
 
 
 \subsection{Automatic Programming}
 \label{sec:headings}
-\cite{AutomaticProgramming}. where automatic programming (AP:Automatic programming) is that all to a part automate the generation of the program and puts the success that is constant as assistance of the developer in from a large-scale system to a small program
+Automatic programming (AP:Automatic programming) is that all to a part automate the generation of the program and puts the success that is constant as assistance of the developer in from a large-scale system to a small program \cite{AutomaticProgramming}. 
 In automatic programming, as for the model to generate a program automatically, a study is done for a long time by logical reasoning.
-\cite{LogicTheorist}. which Logic Theorist which was the world's first artificial intelligence program announced in 1956 intended to imitate human logical reasoning using a search tree and Hugh squirrel Thich, and was made
+Logic Theorist which was the world's first artificial intelligence program announced in 1956 intended to imitate human logical reasoning using a search tree and Hugh squirrel Thich, and was made \cite{LogicTheorist}.
 In late years there is the technique using the large-scale language model by the neural network represented as a study of the automatic programming attracting attention by GPT3\cite{gpt3} of OpenAI.
 By, from the enormous cords which are opened to the public, learning it as a language model by the depths learning, predict a cord depending on the situation, and this is the technique that it is automatic and generates.
-\cite{copilot}. where these technique predicts the code that the developer is going to write on an editor, and the continuance is applied to a function suggesting and puts big success in
-However, I do not generate a code by logical reasoning because these technique is language generation models and are the reasoning based on the illogical experience by enormous learning.
+Where these technique predicts the code that the developer is going to write on an editor, and the continuance is applied to a function suggesting and puts big success in \cite{copilot}.
+However, We do not generate a code by logical reasoning because these technique is language generation models and are the reasoning based on the illogical experience by enormous learning.
 In this respect, it may be said that many tasks are left in the present age.
 In addition, by generation of the automatic programming by the logical reasoning, I gain constant result even recently, but a problem remains only for a language peculiar to domains such as \cite{palsql}, the SQL at a point called the acquisition of the option program because it is effective technique.
 
@@ -114,7 +114,7 @@ In addition, by generation of the automatic programming by the logical reasoning
 The logical reasoning is deduction (mark) reasoning, induction (mark) reasoning, \cite{math300}. comprised of three of the analogical inference (mark) reasoning in a wide sense
 As a representative thing of the logical thought, "an inductive way of thinking", is \cite{saito:11}. with "a way of thinking of the encoding" "a way of thinking of the generalization" "an analogy-like way of thinking"
 Of these, it is "a way of thinking of the generalization" to be equivalent to inductive reasoning.
-\cite {inductive-reasoning} which is the reasoning to arrive at a general rule to explain that from given data with inductive reasoning (inductive inference).
+Inductive inference is the reasoning to arrive at a general rule to explain that from given data \cite {inductive-reasoning}.
 The inductive reasoning with the artificial intelligence is studied for a long time, but \cite{CASE1983193}\cite{4767034}, coverage are restrictive, and a task is left in any program.
 In addition, connection is deep with the study of the acquirement of knowledge because the inductive reasoning with the artificial intelligence can say that it is a method to acquire knowledge automatically.
 There are the things which contradict it between rules even if I formulated a lot of things which I cannot formulate in the knowledge and I say such a problem with an acquirement of knowledge problem and am not still solved \cite{KnowledgeAI}\cite{KAIssues}.
@@ -123,9 +123,9 @@ However, it is not logical because I sought a correlation based on enormous data
 In addition, \cite{BlackBoxProblem}. where the judgment process lacks in explanation characteristics, and this problem is called the issue of flight recorder
 In addition, a large quantity of data are necessary for learning and are the reasoning that is generalized from this, but it is revealed that it is not inductive reasoning.
 \subsection {Genetic Programming}
-\cite{Koza1994}. which is technique by to use genetic operation, generate a program of the hierarchy structure automatically with the genetic programming (GP: Genetic Programming)
+Genetic programming (GP) is technique by to use genetic operation, generate a program of the hierarchy structure automatically \cite{Koza1994}.
 It is used for the solution to various problems including several sets of automatic construction and generation of the action subsidiary of agent.
-\cite{gnp}. where it deals only with hierarchy structure by the GP, but the thing which expanded this in the network is hereditary network programming (GNP: Genetic Network Programming)
+GNP (Genetic Network Programming) deals only with hierarchy structure by the GP, but the thing which expanded this in the network is hereditary network programming \cite{gnp}.
 By turning the smallest unit and a thought, those way of combining taking a simple step automatically, with GP/GNP, the most suitable program builds each node of the network.
 I can classify each node in a judgment node, a processing node, a start node mainly.
 With GP/GNP, I can get an expressed program automatically by a network, but I cannot see the example which applied to inductive reasoning.
@@ -303,11 +303,11 @@ Five teacher data at the stage to use by phased learning are as follows.
 And 3 each phases
 \begin{itemize}
 \item 3 phases:
-Stage 2, 3, 4
+Phase 2, 3, 4
 \item 4 phases:
-Stage 1, 2, 3, 4
+Phase 1, 2, 3, 4
 \item 5 phases:
-Stage 1, 2, 3, 4, 5
+Phase 1, 2, 3, 4, 5
 \end{itemize}
 \noindent
 I change the number of the stage and compare this.
