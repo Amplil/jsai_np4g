@@ -87,11 +87,11 @@ In recent years, automatic programming using neural networks such as GPT-3\cite{
 However, these methods are illogical inference based on experience by enormous learning, and their thinking process is unclear.
 Even using the method by logical inference with a clear thinking process, the system that automatically generates any programs has not yet been realized.
 %Because need to extract the structure of some kind of solutions to the problem comes out to realize automatic programming by this logical reasoning, it is the related field that is deep with the acquirement of knowledge of the artificial intelligence.
-In order to realize automatic programming based on this logical reasoning, it is necessary to extract the structure of some kind of solutions to the problem, so this field is closely related to the knowledge acquisition of artificial intelligence.
+In order to realize automatic programming based on this logical inference, it is necessary to extract the structure of some kind of solutions to the problem, so this field is closely related to the knowledge acquisition of artificial intelligence.
 %In the study on acquirement of knowledge of the artificial intelligence, there is still that what's called knowledge includes a lot contradiction or an exception and is hard to formulate it as a big problem.
 In the study on the knowledge acquisition of the artificial intelligence, there is still a big problem that knowledge includes a lot contradiction or an exception and is hard to formulate.
 %The inductive reasoning generalized by logical reasoning from one example can acquire artificial intelligence oneself knowledge and is an important problem particularly each.
-Especially, the inductive reasoning generalized by logical reasoning from one example is an important problem because the artificial intelligence can acquire knowledge by itself.
+Especially, the inductive inference generalized by logical inference from one example is an important problem because the artificial intelligence can acquire knowledge by itself.
 
 In this study, we propose NP4G: Network Programming for Generalization, which can automatically generate programs by inductive inference.
 Because this is a method that can realize "sequence", "selection", and "iteration" in programming, it is satisfy the conditions of the structured program theorem. So we expect that NP4G is a method automatically acquire any programs by inductive inference.
@@ -102,7 +102,7 @@ It is just randomly selecting nodes and connecting them, but by adjusting the nu
 %I suggest network programming (NP4G) for generalization in three chapters and explain the fabric.
 %I speak a method getting the bit NOT operation program for one of the suggestion technique in four chapters and I show the inspection result in five chapters and examine it.
 %I show the significance of this study and a future problem in six chapters.
-Section 2 explains automatic programming, inductive reasoning, genetic programming as related research.
+Section 2 explains automatic programming, inductive inference, genetic programming as related research.
 Section 3 proposes network programming for generalization (NP4G) and explains its basic structure.
 In Section 4, as an example of the proposed method, we describe how to acquire a bit NOT operation program, and in Section 5, we show and discuss the verification results.
 Section 6 describes the significance of this study and future issues.
@@ -111,31 +111,31 @@ The source code of NP4G is available on GitHub as a public repository \footnotem
 \section{Related Research}
 \subsection{Automatic Programming}
 \label{sec:headings}
-Automatic programming (AP:Automatic programming) is that all to a part automate the generation of the program and puts the success that is constant as assistance of the developer in from a large-scale system to a small program \cite{AutomaticProgramming}. 
-In automatic programming, as for the model to generate a program automatically, a study is done for a long time by logical reasoning.
-Logic Theorist which was the world's first artificial intelligence program announced in 1956 intended to imitate human logical reasoning using a search tree and Hugh squirrel Thich, and was made \cite{LogicTheorist}.
-In late years there is the technique using the large-scale language model by the neural network represented as a study of the automatic programming attracting attention by GPT3\cite{gpt3} of OpenAI.
+Automatic programming (AP) is the automation of all or part of the generation of programs, and achieve measurable success as an aid to developers of large systems and small programs \cite{AutomaticProgramming}. 
+Among automatic programming, a model that automatically generates programs by logical inference has been researched for a long time.
+Logic Theorist, the world's first artificial intelligence program announced in 1956, was designed to imitate human logical inference using search trees and heuristics \cite{LogicTheorist}.
+In late years one of the researches on automatic programming that has been attracting attention is a method using a large-scale language model based on a neural network, represented by his GPT3\cite{gpt3} of OpenAI.
 
-By, from the enormous cords which are opened to the public, learning it as a language model by the depths learning, predict a cord depending on the situation, and this is the technique that it is automatic and generates.
-Where these technique predicts the code that the developer is going to write on an editor, and the continuance is applied to a function suggesting and puts big success in \cite{copilot}.
-However, We do not generate a code by logical reasoning because these technique is language generation models and are the reasoning based on the illogical experience by enormous learning.
-In this respect, it may be said that many tasks are left in the present age.
+This is a method that predicts and automatically generates code according to the situation by learning it as a language model by deep learning from a huge amount of publicly available code.
+These methods have been very successful in applications such as predicting the code that the developer is going to write on the editor and suggesting the continuation of that code \cite{copilot}.
+However, these methods are language generation models, and they do not generate code by logical inference because they are inference based on illogical experience with huge amount of learning.
+In this respect, many problems still remain today.
 
-In addition, by generation of the automatic programming by the logical reasoning, I gain constant result even recently, but a problem remains only for a language peculiar to domains such as \cite{palsql}, the SQL at a point called the acquisition of the option program because it is effective technique.
+Recently, some achievements have been achieved in the generation of automatic programming by logical inference \cite{palsql}, but there remains a problem in terms of acquiring arbitrary programs since this method is effective only for domain-specific languages such as SQL.
 
 \subsection {Inductive Inference}
-In a wide sense, logical inference consists of deduction reasoning, inductive inference and analogical inference \cite{math300}.
-As a representative thing of the logical thought, "an inductive way of thinking", is \cite{saito:11}. with "a way of thinking of the encoding" "a way of thinking of the generalization" "an analogy-like way of thinking"
-Of these, it is "a way of thinking of the generalization" to be equivalent to inductive reasoning.
-Inductive inference is the reasoning to arrive at a general rule to explain that from given data \cite {inductive-reasoning}.
-The inductive reasoning with the artificial intelligence is studied for a long time, but \cite{CASE1983193}\cite{4767034}, coverage are restrictive, and a task is left in any program.
-In addition, connection is deep with the study of the acquirement of knowledge because the inductive reasoning with the artificial intelligence can say that it is a method to acquire knowledge automatically.
-There are the things which contradict it between rules even if I formulated a lot of things which I cannot formulate in the knowledge and I say such a problem with an acquirement of knowledge problem and am not still solved \cite{KnowledgeAI}\cite{KAIssues}.
+In a wide sense, logical inference consists of deductive inference, inductive inference and analogical inference \cite{math300}.
+Representative examples of logical thinking include "inductive thinking", "analogous thinking", "thinking of generalization", and "symbolic thinking" \cite{saito:11}.
+Of these, "thinking of generalization" corresponds to inductive inference.
+Inductive inference is an inference that derives general rules to explain given data \cite {inductive-reasoning}.
+Inductive inference by artificial intelligence has been studied for a long time \cite{CASE1983193}\cite{4767034}, but its scope of application is limited and problems remain in any programs.
+In addition, since inductive inference by artificial intelligence can be said to be a method of automatically acquiring knowledge, it is closely related to research on knowledge acquisition.
+Many knowledge cannot be formulated, and even if formulated, there are contradictions between rules. Such problems are called knowledge acquisition problems \cite{KnowledgeAI}\cite{KAIssues}, and it is still not resolved.
 
-As the technique of the neural network can pick out the common point of the characteristic of individual data if I say at a point of view called the generalized reasoning, it may be said that it is the range of this field.
-However, it is not logical because I sought a correlation based on enormous data.
-In addition, \cite{BlackBoxProblem}. where the judgment process lacks in explanation characteristics, and this problem is called the issue of flight recorder
-In addition, a large quantity of data are necessary for learning and are the reasoning that is generalized from this, but it is revealed that it is not inductive reasoning.
+From the point of view of inference with generalization, neural network methods are also within the scope of this field because they can pick out common features of individual data.
+However, it is not logical because the correlation was obtained based on a huge amount of data.
+In addition, the decision process is poorly explained, and this problem is called the black-box problem \cite{BlackBoxProblem}.
+And it requires a large amount of data for learning, so it is also an inference that generalizes, but not an inductive inference.
 
 \subsection {Genetic Programming}
 Genetic programming (GP) is technique by to use genetic operation, generate a program of the hierarchy structure automatically \cite{Koza1994}.
@@ -143,17 +143,17 @@ It is used for the solution to various problems including several sets of automa
 GNP (Genetic Network Programming) deals only with hierarchy structure by the GP, but the thing which expanded this in the network is hereditary network programming \cite{gnp}.
 By turning the smallest unit and a thought, those way of combining taking a simple step automatically, with GP/GNP, the most suitable program builds each node of the network.
 I can classify each node in a judgment node, a processing node, a start node mainly.
-With GP/GNP, I can get an expressed program automatically by a network, but I cannot see the example which applied to inductive reasoning.
+With GP/GNP, I can get an expressed program automatically by a network, but I cannot see the example which applied to inductive inference.
 
 \section {Proposed Method}
 \subsection{Basic Concept of NP4G}
-NP4G is technique by to generate a program expressed in a network automatically, perform inductive reasoning based on teacher data.
+NP4G is technique by to generate a program expressed in a network automatically, perform inductive inference based on teacher data.
 For example, in \ref{fig:summary}, I get a bit NOT operation program by generalization from four teacher data.
 Teacher data are data of 1 input 1 output and search until the program that input and output in accordance with the teacher data is provided is generated.
 The generated program is provided as well as a way of thinking of the GNP by connecting the plural nodes with the simple function into a network form.
 The GNP is network programming using the hereditary technique, but NP4G is technique assuming an application of various technique not only use of the hereditary technique.
 
-By being generalized for one example (teacher data) each, in NP4G, it may be said that it is technique of the acquirement of knowledge by the inductive reasoning in the point to acquire one knowledge (program).
+By being generalized for one example (teacher data) each, in NP4G, it may be said that it is technique of the acquirement of knowledge by the inductive inference in the point to acquire one knowledge (program).
 Therefore there is very few it and, unlike the technique using the neural network, finishes the number of necessary teacher data with around several which can get a target characteristic to be generalized.
 In addition, it is apparent as built program itself becomes the form of the network whether you work what kind of inside.
 
@@ -172,7 +172,7 @@ As well as GP/GNP, I can expect expansion to the effective algorithm by the comb
 \end{figure}
 
 \subsection {Structured Theorem}
-A use had a problem that it was restrictive with the technique that logical reasoning had.
+A use had a problem that it was restrictive with the technique that logical inference had.
 However, it has structure to meet the condition of the structured theorem to obtain any program in NP4G.
 With the structured theorem, any program is three kinds of \cite{StructuredProgramming}. which is a fabric, a theorem to insist that I can constitute it by a combination "repeatedly" "a choice" "sequentially"
 Because NP4G can realize "a choice" by the data which are iterable "repeatedly" to explain it in \ref{sec:struct} by establishing a judgment node and the processing node for a function to be given beforehand "sequentially" by carrying out a node by the order that I was able to decide from a start node, it may be said that I meet the condition of the structured theorem.
@@ -475,8 +475,8 @@ It is thought that I was able to control generation time briefly because I can c
 \subsection {Summary and Significance in this study}
 In this study, I suggested network programming (NP4G) for generalization.
 By using NP4G, chose the node at random and just tied it, but confirmed that I could acquire a bit NOT operation program from several teacher data.
-As NP4G is technique finding a general property from several examples, it is inductive reasoning.
-In addition, it has the structure that "a choice" meets the condition of the structured theorem "repeatedly" "sequentially" in the programming and is the technique that it can expect to acquire any program by inductive reasoning automatically.
+As NP4G is technique finding a general property from several examples, it is inductive inference.
+In addition, it has the structure that "a choice" meets the condition of the structured theorem "repeatedly" "sequentially" in the programming and is the technique that it can expect to acquire any program by inductive inference automatically.
 When the network programming not to be limited to hereditary technique shown by NP4G is applied as technique of the new automatic programming widely in the new field in future, I can hope.
 There is it at the point that showed that I can expect realization of the artificial intelligence which general-purpose, is flexible which learns the significance of this study for every knowledge by network programming by oneself, and makes use of the contents, and reasons for a different problem logically, and leads an answer.
 
@@ -484,7 +484,7 @@ There is it at the point that showed that I can expect realization of the artifi
 \subsubsection {Turing Completeness}
 Indicating NP4G having explained that meet the condition of the structured theorem, but NP4G being Turing perfection to prove that NP4G is technique to be provided by any program it is necessary.
 If Turing is complete, a certain calculation model has the computing power that is equal to all-around Turing machine, in other words, show what can reproduce any program.
-I mean that the technique that can get any program by inductive reasoning was able to be realized if I can show that Turing is complete.
+I mean that the technique that can get any program by inductive inference was able to be realized if I can show that Turing is complete.
 In addition, it is necessary to actually try whether you can automatically build not only the bit NOT operator but also other programs using NP4G.
 
 \subsubsection {Grouping for a Search Technique}
