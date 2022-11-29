@@ -120,32 +120,33 @@ The source code of NP4G is available on GitHub as a public repository \footnotem
 \label{sec:headings}
 Automatic programming (AP) is the automation of all or part of the generation of programs, and achieve measurable success as an aid to developers of large systems and small programs \cite{AutomaticProgramming}. 
 Among automatic programming, a model that automatically generates programs by logical inference has been researched for a long time.
-Logic Theorist, the world's first artificial intelligence program announced in 1956, was designed to imitate human logical inference using search trees and heuristics \cite{LogicTheorist}.
-In late years one of the researches on automatic programming that has been attracting attention is a method using a large-scale language model based on a neural network, represented by his GPT3\cite{gpt3} of OpenAI.
+Logic Theorist, the world's first artificial intelligence program published in 1956, was designed to imitate human logical inference using search trees and heuristics \cite{LogicTheorist}.
 
-This is a method that predicts and automatically generates code according to the situation by learning it as a language model by deep learning from a huge amount of publicly available code.
-These methods have been very successful in applications such as predicting the code that the developer is going to write on the editor and suggesting the continuation of that code \cite{copilot}.
-However, these methods are language generation models, and they do not generate code by logical inference because they are inference based on illogical experience with huge amount of learning.
+As research on automatic programming that has been attracting attention in recent years, there are methods using a large-scale language model based on a neural network, represented by GPT3 \cite{gpt3} of OpenAI.
+The methods predict and automatically generate code according to the situation by learning as a language model by deep learning from a huge amount of publicly available code.
+The methods have been very successful in applications such as predicting the code that the developer is going to write on the editor and suggesting the continuation of the code \cite{copilot}.
+However, the methods do not generate code by logical inference because they are language generation models and are inference based on illogical experience with huge amount of learning.
 In this respect, many problems still remain today.
 
-Recently, some achievements have been achieved in the generation of automatic programming by logical inference \cite{palsql}, but there remains a problem in terms of acquiring arbitrary programs since this method is effective only for domain-specific languages such as SQL.
+Recently, some researches have been achieved in the generation of automatic programming by logical inference \cite{palsql}, however there remains a problem in terms of acquiring arbitrary programs since the methods are effective only for domain-specific languages such as SQL.
 
 \subsection {Inductive Inference}
-In a wide sense, logical inference consists of deductive inference, inductive inference and analogical inference \cite{math300}.
+In a wide sense, logical inference consists of deductive inference, inductive inference, and analogical inference \cite{math300}.
 Representative examples of logical thinking include "inductive thinking", "analogous thinking", "thinking of generalization", and "symbolic thinking" \cite{saito:11}.
 Of these, "thinking of generalization" corresponds to inductive inference.
 Inductive inference is an inference that derives general rules to explain given data \cite {inductive-reasoning}.
-Inductive inference by artificial intelligence has been studied for a long time \cite{CASE1983193}\cite{4767034}, but its scope of application is limited and problems remain in any programs.
+Inductive inference by artificial intelligence has been studied for a long time \cite{CASE1983193}\cite{4767034}, but its scope of application is limited and problems remain in acquiring arbitrary programs.
 In addition, since inductive inference by artificial intelligence can be said to be a method of automatically acquiring knowledge, it is closely related to research on knowledge acquisition.
-Many knowledge cannot be formulated, and even if formulated, there are contradictions between rules. Such problems are called knowledge acquisition problems \cite{KnowledgeAI}\cite{KAIssues}, and it is still not resolved.
+Many knowledge cannot be formulated, and even if formulated, there are contradictions between rules. 
+Such problem is called knowledge acquisition problem \cite{KnowledgeAI}\cite{KAIssues}, and it is still not resolved.
 
-From the point of view of inference with generalization, neural network methods are also within the scope of this field because they can pick out common features of individual data.
-However, it is not logical because the correlation was obtained based on a huge amount of data.
+From the point of view of inference with generalization, neural network methods are also within the scope of the field because they can pick out common features of individual data.
+However, it is not logical because the correlation is obtained based on a huge amount of data.
 In addition, the decision process is poorly explained, and this problem is called the black-box problem \cite{BlackBoxProblem}.
-And it requires a large amount of data for learning, so it is also an inference that generalizes, but not an inductive inference.
+And it requires a large amount of data for learning, so it is only an inference that generalizes, but not an inductive inference.
 
 \subsection {Genetic Programming}
-Genetic programming (GP) is technique for automatically generating tree-structured programs by using genetic manipulations \cite{Koza1994}.
+Genetic programming (GP) is a method for automatically generating tree-structured programs by using genetic manipulations \cite{Koza1994}.
 It is used to solve various problems such as the automatic construction of formulas and the generation of agent action sequences.
 GP handles only tree structures, but genetic network programming (GNP) is an extension of GP to networks \cite{gnp}.
 GP/GNP regards each node in the network as the minimum unit for simple processing, and automatically changes the way they are combined to build more optimal programs.
@@ -155,12 +156,12 @@ GP/GNP can automatically acquire a program represented by a network, but there i
 \section {Proposed Method}
 \subsection{Basic Concept of NP4G}
 NP4G is a method of performing inductive inference by automatically generating a program represented by a network based on training data.
-For example, in \ref{fig:summary}, a bitwise NOT operation program is obtained by generalization from four training data.
+For example, in Figure \ref{fig:summary}, a bitwise NOT operation program is obtained by generalization from four training data.
 The training data is one-input, one-output data, and the search is performed until a program is generated that can obtain inputs and outputs that match the training data.
 The generated program is obtained by connecting multiple nodes with simple functions in a network, similar to the concept of GNP.
 GNP is network programming using genetic methods, but NP4G is a method that assumes the application of various methods, not limited to the use of genetic methods.
 
-NP4G can be said to be a method of knowledge acquisition by inductive inference in that it acquires one piece of knowledge (program) by generalizing each case (teaching data).
+NP4G can be said to be a method of knowledge acquisition by inductive inference in that it acquires one piece of knowledge (program) by generalizing each case (training data).
 Therefore, unlike methods using neural networks, the number of required training data is very small, only a few that can grasp the characteristics of the target to be generalized.
 In addition, since the constructed program itself is in the form of a network, it is clear what kind of processing is being done internally.
 
@@ -178,31 +179,33 @@ In the future, similar to GP/GNP, it is expected to be extended to effective alg
 \label{fig:summary}
 \end{figure}
 
-\subsection {Structured Theorem}
+\subsection {Structure Theorem}
 There is a problem that the method that can make logical inference has a limited application.
-However, NP4G has a structure that satisfies the conditions of the structuring theorem in order to obtain an arbitrary program.
-Structured theorem is a theorem that states that any program can be constructed by combining three types of basic structures: "sequence", "selection", and "iteration" \cite{StructuredProgramming}.
-As explained in \ref{sec:struct}, NP4G can achieve "sequence" by executing nodes in a predetermined order from the start node, "selection" by providing decision nodes and processing nodes as preliminarily provided functions, and "iteration" by iterable data. So it can be said that the condition of the structured theorem is satisfied.
+However, NP4G has a structure that satisfies the conditions of the structure theorem in order to obtain an arbitrary program.
+Structure theorem states that any program can be constructed by combining three types of basic structures: "sequence", "selection", and "iteration" \cite{StructuredProgramming}.
+As explained in subsection \ref{sec:struct}, NP4G can achieve "sequence" by executing nodes in a predetermined order from the start node, "selection" by providing decision nodes and processing nodes as preliminarily provided functions, and "iteration" by iterable data. 
+So it can be said that the condition of the structure theorem is satisfied.
 
 \subsection{Basic Structure of NP4G}
 \label{sec:struct}
-NP4G has an effective graph structure, such as \ref{fig:sequence}, in which nodes such as multiple functions and objects are connected in a network.
-Nodes are functions (squares in the figure), a start node with input data that is executed at the beginning of the program (a circle marked with "S" in the figure), and a end node that signal the end of the program (a circle marked with "E" in the figure), and object nodes (circles in the figure) that output pre-stored data without an input link.
+NP4G has a directed graph structure, such as Figure \ref{fig:sequence}, in which nodes such as multiple functions and objects are connected in a network.
+Nodes are functions (squares in the figure), a start node (a circle marked with "S" in the figure) with input data that is executed at the beginning of the program , a end node (a circle marked with "E" in the figure) that signal the end of the program, and object nodes (circles in the figure) that output pre-stored data without an input link.
 The number of links connected as inputs to a node varies depending on the function, but any number of links can be connected as outputs regardless of the function.
 
 \subsubsection {Execution Order of Nodes}
 \label{sec:sequence}
-Using an example of a network generated by NP4G shown in \ref{fig:sequence}, we explain the execution order of nodes.
-By processing the nodes in order from the start node, the "sequence" of the structured theorem can be realized.
+Using an example of a network generated by NP4G shown in Figure \ref{fig:sequence}, we explain the execution order of nodes.
+By processing the nodes in order from the start node, the "sequence" of the structure theorem can be realized.
 
 First, the nodes connected to the start node with input data are executed in order from the top, starting with \textcircled{\scriptsize 1}, \textcircled{\scriptsize 2}, \textcircled{\scriptsize 3}.
-When all those nodes are executed, the nodes connected to them are also executed in order from top to bottom: \textcircled{\scriptsize 4}, \textcircled{\scriptsize 5}, \textcircled{\scriptsize 6}.
+When all the nodes are executed, the nodes connected to them are also executed in order from the top, \textcircled{\scriptsize 4}, \textcircled{\scriptsize 5}, \textcircled{\scriptsize 6}.
 When the network is regarded as a data series, this operation to be executed in order from the top means the operation to arrange the nodes to be executed next as a list and execute them in order from the front.
 
-Here, like \textcircled{\scriptsize 4} in \ref{fig:sequence}, if there is no output from other input nodes, the execution result will be "not yet" and no output will occur.
-This means that even if there are nodes that do not derive from the start node, such as \textcircled{\scriptsize 9}, they will not be output.
+Here, like \textcircled{\scriptsize 4} in Figure \ref{fig:sequence}, if there is no output from other input nodes, the execution result will be "not yet" and no output will occur.
+This means that if there are nodes that do not derive from the start node, such as \textcircled{\scriptsize 9}, they will not be output.
 On the other hand, in the case of \textcircled{\scriptsize 6}, \textcircled{\scriptsize 5} was executed immediately before, and all the outputs of the input nodes exist, so they are output.
-Then \textcircled{\scriptsize 7}, \textcircled{\scriptsize 8}, \textcircled{\scriptsize 9}, but for \textcircled{\scriptsize 8}, this node is already \textcircled{\scriptsize 6}, the execution result will be "already done" and will not be output again.
+Next \textcircled{\scriptsize 7}, \textcircled{\scriptsize 8}, and  \textcircled{\scriptsize 9} are executed, but in the case of \textcircled{\scriptsize 8}, this node has already been 
+ output in \textcircled{\scriptsize 6}, the execution result will be "already done" and will not be output again.
 Each node is executed in this way until there are no more nodes to process next.
 
 Finally, the last output node is responsible for the output of the entire network and is connected to the end node.
@@ -218,10 +221,10 @@ In other words, the end nodes are not connected to the network from the beginnin
 \end{figure*}
 
 \subsubsection {Iteration}
-In order to satisfy the structured theorem, it is necessary to introduce "iteration".
+In order to satisfy the structure theorem, it is necessary to introduce "iteration".
 In NP4G, iterative processing is realized not by providing a feedback loop on the network, but by inputting iterable data to a function.
-A function given an iterable of data as input does the same thing for each element of that data.
-The function also creates iterable data or converts it back to non-iterable data, and the process is repeated as long as iterable data is used as function input.
+A function given an iterable data as input does the same process for each element of that data.
+Functions also creates iterable data or converts it back to non-iterable data, and the process is repeated as long as iterable data is used as function input.
 By doing this, iteration can be achieved without creating a program that gets stuck in an infinite loop and never terminates.
 In addition, even when randomly combining nodes and automatically generating a program, the simplicity of the node execution order makes it less likely that errors will occur.
 
