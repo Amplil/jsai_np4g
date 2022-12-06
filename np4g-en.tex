@@ -223,58 +223,56 @@ In other words, the end nodes are not connected to the network from the beginnin
 \subsubsection {Iteration}
 In order to satisfy the structure theorem, it is necessary to introduce "iteration".
 In NP4G, iterative processing is realized not by providing a feedback loop on the network, but by inputting iterable data to a function.
-A function given an iterable data as input does the same process for each element of that data.
-Functions also creates iterable data or converts it back to non-iterable data, and the process is repeated as long as iterable data is used as function input.
-By doing this, iteration can be achieved without creating a program that gets stuck in an infinite loop and never terminates.
-In addition, even when randomly combining nodes and automatically generating a program, the simplicity of the node execution order makes it less likely that errors will occur.
+A function given an iterable data as input does the same process for each element of the data.
+A function also creates iterable data or converts it back to non-iterable data, and the process is repeated as long as iterable data is used as the function input.
+By doing so, iteration can be achieved without creating a program that gets stuck in an infinite loop and never terminates.
+In addition, even when randomly combining nodes and automatically generating a program, the simplicity of the node execution order makes it less likely that errors occur.
 
-\subsubsection {Automatic Definition Functions (ADFs)}
-In GP, Automatic Definition Functions (ADFs) are used because they can be expected to be faster as programs evolve \cite{adfs}.
+\subsubsection {Automatically Defined Functions (ADFs)}
+GP uses Automatically Defined Functions (ADFs) because they can be expected to be faster as programs evolve \cite{adfs}.
 ADFs make it possible to create more advanced programs in a short period of time by reusing networks that have already been created.
-In NP4G, ADFs are combined with phased learning described in \ref{sec:PL}, registering networks as ADFs at each phase and allowing the networks to be reused in the next phase.
+NP4G combines ADFs with phased learning described in \ref{sec:PL}, registering networks as ADFs at each phase and allowing the networks to be reused in the next phase.
 
 \subsubsection {Phased Learning}
 \label{sec:PL}
 Phased learning is a method of learning even a complicated program without difficulty by dividing learning into each phase.
 Phased learning is a method mainly used in reinforcement learning, and it has the effect of preventing learning time from becoming enormous by lowering the degree of freedom that learning can take.
 
-In NP4G, we start by reducing the number of training data to be learned and generating a network that performs simple processing.
+NP4G starts by reducing the number of training data to be learned and generating a network that performs simple processing.
 Then, the generated networks are reused as ADFs when constructing the next network.
-By doing this, we can expect to learn in a shorter time than when obtaining a complicated network from the beginning.
+By doing so, we can expect to learn in a shorter time than when obtaining a complicated network from the beginning.
 
 \section {Acquisition of a Bitwise NOT Operation Program}
 Using NP4G, we consider the case of automatically constructing a bitwise NOT operation program, and verify it by actually executing the NP4G program.
-In this research, we use the programming language Python (Python 3.7.12) to create a NP4G program.
+In this study, we use the programming language Python (Python 3.7.12) to create a NP4G program.
 We use Google's Colaboratory as the execution environment.
 In addition, list-type objects (hereafter referred to as lists) are used in Python programs as iterable data for realizing iterative processing.
-In NP4G, all data stored in teacher data, start nodes, and object nodes are character strings.
+In NP4G, all data stored in training data, start nodes, and object nodes are character strings.
 
 \subsection {Preliminarily Provided Functions}
-As a function to construct the network, four nodes are given in advance: split function, sum function, equal function, and control gate function, as shown in \ref{fig:func}.
+As a function to construct the network, four nodes are given in advance: split function, sum function, equal function, and control gate function, as shown in Figure \ref{fig:func}.
 The contents of each function are explained below.
 
 \subsubsection{Split Function}
-Separate strings with spaces as delimiters and write them as a list.
+Split function separates strings with spaces as delimiters and write them as a list.
 In figures, "split" is enclosed in a square.
 
 \subsubsection{Sum Function}
-Sum Function smoothes multiple inputs, such as list-type inputs and other character strings, and combines them with a space between them to make one character string.
-If the input string is "[NULL]", then "[NULL]" will not concatenate.
-If the output string is "" (empty), print "[NULL]".
+Sum function smoothes multiple inputs, such as list-type inputs and other character strings, and combines them with a space between them to make one character string.
+If the input string is "[NULL]", then "[NULL]" is not concatenated.
+If the output string is "" (empty), then "[NULL]" is outputted.
 In figures, "+" is enclosed in a square.
 
 \subsubsection {Equal Function}
 Equal function outputs "[TRUE]" when the values of the two inputs match.
 Otherwise, it outputs "[FALSE]".
 It plays the role of decision node in GP/GNP.
-When showing in figures, "==" is enclosed in a square.
+In figures, "==" is enclosed in a square.
 
 \subsubsection {Control Gate Function}
-If one of the two inputs is "[TRUE]", pass the value of the other input, otherwise output "[NULL]".
+If one of the two inputs is "[TRUE]", control gate function passes the value of the other input, otherwise outputs "[NULL]".
 It plays the role of a processing node in GP/GNP.
-When shown in the figure, they are indicated by white circles.
-
-
+In figures, it is indicated by white circles.
 
 \begin{figure*}[t]
 \begin{center}
@@ -286,17 +284,13 @@ When shown in the figure, they are indicated by white circles.
 \end{figure*}
 
 \subsection {Example of a Bitwise NOT Operation Program}
-\ref{fig:bitwise_not} shows an example of a bitwise NOT operation program realized by using these four functions.
-As the first phase, construct the network in the upper left of the figure for 1 bit input.
+Figure \ref{fig:bitwise_not} shows an example of a bitwise NOT operation program realized by using these four functions.
+As the first phase, NP4G constructs the network in the upper left of the figure for 1 bit input.
 The equal function whose input is an object node containing "0" and a start node containing input "0" outputs "[TRUE]".
 The control gate function with "[TRUE]" as input outputs the value of the object node storing "1" as it is.
-In this way, the "selection" of the structured theorem is realized by the equal function and the control gate function.
+In this way, the "selection" of the structure theorem is realized by the equal function and the control gate function.
 If the input is "1", another equal function and a control gate function that output "[FALSE]" and "[NULL]" for input "0" output "[TRUE]" and "0" respectively.
 In this way, a 1 bit logical NOT is constructed as a network.
-
-
-
-
 
 \begin{figure*}[t]
     \begin{center}
@@ -309,20 +303,20 @@ In this way, a 1 bit logical NOT is constructed as a network.
 
 Next, as shown in the upper right of the figure, this network is made into a form that can be reused for building the next network as ADFs.
 In the figure, "not" is indicated by enclosing it in a square.
-Then, in the next phase where multiple bits are input, we construct a bitwise NOT operation program by using iterable data (list) iterative processing and ADFs "not".
+Then, in the next phase where multiple bits are input, NP4G constructs a bitwise NOT operation program by using the iterative processing of iterable data (list) and the ADFs "not".
 Multi-bit input strings are made into a list by the split function, the ADFs "not" are repeatedly applied to each element, and the disjoint strings are combined by the sum function to realize multi-bit logical not.
 By phased learning that builds a network phase by phase in this way, the target program is realized.
 
-\subsection {Inspection Method}
+\subsection {Verification Method}
 We verify whether a bitwise NOT operation program can be automatically acquired by NP4G simply by randomly selecting and connecting nodes for several training data.
 
-\subsubsection {Teacher Data and Random Search}
-The teacher data used are four shown in \ref{tbl:TeacherData}, and the teacher data used at each phase changes depending on the method of phased learning.
-In addition, each input and output of the teacher data is written in parentheses such as (input, output).
+\subsubsection {Training Data and Random Search}
+The training data used are only four shown in Table \ref{tbl:TeacherData}, and the training data used at each phase changes depending on the method of phased learning.
+Each input and output of the training data is written in parentheses such as (input, output).
 
 \begin{table}[htbp]
 \centering
-\caption {All teacher data to use in this study}
+\caption {All training data to use in this study}
 \label{tbl:TeacherData}
 \begin{tabular}{l}
 \hline
@@ -341,7 +335,7 @@ The random algorithm first places a start node and an end node, selects nodes at
 
 \subsubsection {Method of the Phased Learning}
 \label{sec:PLhow}
-Here, we prepared the phases used phased learning from phase 1 to phase 5, and examined the effect of phased learning by changing the combination of each phase.
+In this study, we prepare the phases used in phased learning from phase 1 to phase 5, and examine the effect of phased learning by changing the combination of each phase.
 The training data for the five phases used in phased learning are as follows.
 
 \begin{itemize}
@@ -363,62 +357,63 @@ Phase 1, 2, 3, 4, 5
 \end{itemize}
 \noindent
 
-
 The networks obtained at each phase can be reused in subsequent phases by adding them to a list as ADFs using Python lambda expressions.
-A network that matches the teacher data at each phase is searched by randomly combining preliminarily provided functions, object nodes, and ADFs.
+A network that matches the training data at each phase is searched by randomly combining preliminarily provided functions, object nodes, and ADFs.
 Note that the object node also needs to be prepared in advance in the same way as preliminarily provided functions.
-In the case of object nodes, both input and output character strings of teacher data used in learning at each phase are prepared as object nodes.
+In the case of object nodes, both input and output character strings of training data used in learning at each phase are prepared as object nodes.
 
-\subsubsection {Inspection}
-In the inspection, the NP4G program is executed 10 times, and the average value of the generation results and execution time is obtained.
+\subsubsection {Verification}
+In the verification, the NP4G program is executed 10 times, and the average values of the generation results and execution time are obtained.
 The generated result is "success" if the network obtained by searching is a generalized network that can obtain the expected output, and "failure" otherwise. If it is not generated within the time limit for one program execution, it is considered as "exceeded".
-To check whether the output is the expected one, enter all binary strings ("0" to "1 1 1 1 1") from 1 to 5 digits as verification data.
+To check whether the output is the expected one, enter all binary strings from 1 to 5 digits ("0" to "1 1 1 1 1") as verification data.
 Also, the time limit for one execution is 3 hours (10,800 seconds).
 
-\section {Results and Considerations}
-\ref{tbl:result1} shows the execution results of the NP4G program when the number of phases and the number of nodes are changed.
+\section {Results and Discussion}
+Table \ref{tbl:result1} shows the execution results of the NP4G program when the number of phases and the number of nodes are changed.
 The execution results are displayed with the numbers of "success", "failure", and "exceeded".
-\ref{tbl:result2} shows the average, maximum, and minimum execution time (s) when the number of phases and the number of nodes are changed.
-From \ref{tbl:result1} and \ref{tbl:result2}, when there are 4 phases and 20 nodes, the number of successes is as high as 7 and the average time is relatively short as 1105s.
+Table \ref{tbl:result2} shows the average, maximum, and minimum execution times (s) when the number of phases and the number of nodes are changed.
+From Table \ref{tbl:result1} and Table \ref{tbl:result2}, when there are 4 phases and 20 nodes, the number of successes is as high as 7 and the average time is relatively short as 1,105s.
 In the case of 4 phases and 15 nodes, the number of successes is 6, but the average time is the shortest at 334s.
 These are the best results.
 
-As you can see from \ref{tbl:result1}, there was only one failed network with 4 phases and 10 nodes.
-Also, when looking at the results when the number of nodes is 5, all of them exceeded the time except for one successful case when the number of nodes was 5.
-This is probably because the number of nodes was too small to generate a bitwise NOT operation program with 5 nodes.
+As shown in Table \ref{tbl:result1}, there is only one failed network when there are 4 phases and 10 nodes.
+Also, from the results when the number of nodes is 5, all of them exceed the time except for one successful case of 5 phases.
+This is probably because the number of nodes is too small to generate a bitwise NOT operation program with 5 nodes.
 On the other hand, when the number of nodes is large, such as 20, the number of time overruns tends to increase, which is thought to be due to the time required to generate the network as the number of nodes increases.
-Next, looking at the average time for each number of phases in \ref{tbl:result2}, we can see that the average time for 3 phases tends to be long.
-The reason for this is thought to be that the number of phases to be taken is small in three phases, and it becomes necessary to create a complicated network in one phase.
+Next, looking at the average time for each number of phases in Table  \ref{tbl:result2}, we can see that the average time for 3 phases tends to be long.
+The reason for this is thought to be that the number of phases to be taken is small in 3 phases, and it becomes necessary to create a complicated network in one phase.
 Also, the reason why the average time tends to be longer for 5 phases than for 4 phases is that if the number of phases is increased too much, it will take extra time.
 
-\ref{fig:out_net_p5n5} shows a 5-node network with 5 phases that was the only successful automatic generation with 5 nodes.
-It was found that the expected network can be obtained even if the number of nodes is small like this network.
-After automatically generating a network with an output of 1 for an input of 0 in phase 1, it is used as adf1 in phase 2. So we can see that the network created in phase 2 is used as adf2 in phase 3.
-At phase 4, we can see that adf3 has already been used to create a network similar to the example implementation of a bitwise NOT operation program in \ref{fig:bitwise_not}.
-In the case of this network, it was found that a bitwise NOT operation program was obtained at phase 4, and the expected network was obtained even in the middle of phased learning.
+Figure \ref{fig:out_net_p5n5} shows a 5-nodes network with 5 phases that is the only successful automatic generation.
+It is shown that the expected network can be obtained even if the number of nodes is small like this network.
+After automatically generating a network with an output of 1 for an input of 0 in Phase 1, it is used as adf1 in Phase 2, and then the network created in Phase 2 is used as adf2 in Phase 3.
+In Phase 4, we can see that adf3 is used to create a network similar to the example implementation of a bitwise NOT operation program in Figure \ref{fig:bitwise_not}.
+In the case of the network, we confirm that a bitwise NOT operation program is obtained in Phase 4, and the expected network is obtained even in the middle of phased learning.
 
-Next, \ref{fig:out_net_p4n10} shows the network when automatic generation with 10 nodes in 4 phases fails.
-In this way, because the network has become complicated, it is thought that although there are outputs that match all the training data, there are outputs that do not match the verification data.
+Next, Figure \ref{fig:out_net_p4n10} shows the network when automatic generation with 10 nodes in 4 phases fails.
+In this way, because the network becomes complicated, it is thought that although there are outputs that match all the training data, there are outputs that do not match the verification data.
 In the case of this network, an input of "0 1 0" results in "0 1 1" and an output that is not "1 0 1".
-Even in this case, it is considered that the expected network can be obtained by increasing the number of phases and learning with teacher data including ("0 1 0", "1 0 1").
-Also, from phase 2 and phase 4 in \ref{fig:out_net_p4n10}, it can be seen that the ADFs adf1 and adf3 generated in the previous phase are not always used because the nodes are randomly selected when constructing the network.
-As you can see from the networks obtained in the actual verification of \ref{fig:out_net_p5n5} and \ref{fig:out_net_p4n10}, NP4G has a clear thinking process, unlike methods using neural networks.
+Even in this case, it is considered that the expected network can be obtained by increasing the number of phases and learning with training data including ("0 1 0", "1 0 1").
+Also, from Phase 2 and Phase 4 in Figure \ref{fig:out_net_p4n10}, we confirm that the ADFs adf1 and adf3 generated in the previous phase are not always used because the nodes are randomly selected when constructing the network.
+As we can see from the networks obtained in the actual verification of Figure \ref{fig:out_net_p5n5} and Figure \ref{fig:out_net_p4n10}, NP4G has a clear thinking process, unlike methods using neural networks.
 
-\ref{tbl:result3} shows the average, maximum and minimum generation time (s) at each phase.
-This table is compiled from all successful results regardless of the number of nodes or phases.
-From this table, it can be seen that the generation time in phases 1 and 2 is shorter than the other phases.
-This is because both phases 1 and 2 are learning with only one set of training data, so it is easy to find a network that matches the training data even if the network is generated randomly.
-Next, it can be seen that the average generation time in phase 3 is the longest at 2585.24 s, followed by phase 4, and then phase 5.
-Consider these factors.
-First, in the case of phase 3, it is learning of teacher data ("0" "1"), ("1", "0"), and for the first time with one network, it is necessary to search for a network that satisfies two conditions. Therefore, it is considered that it was necessary to generate a complicated network.
-In phase 4, a complicated network is not required, but the generation time is considered to be longer because it was necessary to generate a network that required iterative processing for the first time in phase 4.
-In the case of phase 5, even if the number of digits increases after getting the iterative process, the same network can be used, so it is thought that the generation time could be shortened.
+Table \ref{tbl:result3} shows the average, maximum, and minimum generation times (s) at each phase.
+This table is compiled from all successful results regardless of the number of nodes and phases.
+From this table, it can be seen that the generation times in Phase 1 and 2 are shorter than the other phases.
+This is because both Phase 1 and 2 are learning with only one set of training data, so it is easy to find a network that matches the training data even if the network is generated randomly.
+Next, it can be seen that the average generation time in Phase 3 is the longest at 2585.24s, followed by Phase 4, and then Phase 5.
+We consider these factors as follows:
+First, Phase 3 is the learning of training data ("0" "1") and ("1", "0"), and for the first time with one network, it is necessary to search for a network that satisfies two conditions.
+Therefore, it is considered that it is necessary to generate a complicated network.
+In Phase 4, a complicated network is not required, but the generation time is considered to be longer because it is necessary to generate a network that required iteration processing for the first time in Phase 4.
+In the case of Phase 5 after getting the iterative process, even if the number of digits increases, the same network can be used, so it is thought that the generation time can be shortened.
 
 \begin{table}[htbp]
-\caption {Execution result (success/failure/excess)}
+\centering
+\caption {Execution result (success / failure / exceeded)}
 \label{tbl:result1}
 \begin{tabular}{c|cccc}
-    Number of the nodes &5&10&15&20\\
+    Number of nodes &5&10&15&20\\
     \hline \hline
     3 phases &0 / 0 / 10&8 / 0 / 2&6 / 0 / 4&2 / 0 / 8\\
     4 phases &0 / 0 / 10&7 / 1 / 2&6 / 0 / 4&7 / 0 / 3\\
@@ -426,11 +421,13 @@ In the case of phase 5, even if the number of digits increases after getting the
     \hline
 \end{tabular}
 \end{table}
+
 \begin{table}[htbp]
-\caption {Execution time (s)}
+\centering
+\caption {Execution times (s)}
 \label{tbl:result2}
 \begin{tabular}{c|crrrrr}
-    Number of the nodes & & 5& 10& 15& 20\\
+    Number of nodes & & 5& 10& 15& 20\\
     \hline \hline
             & Mean & -&  3067& 5565& 3699\\
     3 phases& Max  & -& 10480& 8966& 9543\\
@@ -446,8 +443,10 @@ In the case of phase 5, even if the number of digits increases after getting the
     \hline
 \end{tabular}
 \end{table}
+
 \begin{table}[htbp]
-\caption {Generation time (s) in each phase}
+\centering
+\caption {Generation times (s) in each phase}
 \label{tbl:result3}
 \begin{tabular}{c|rrrrr}
     Phase &1&2&3&4&5\\
@@ -459,6 +458,7 @@ In the case of phase 5, even if the number of digits increases after getting the
     \hline
 \end{tabular}
 \end{table}
+
 \begin{figure*}[t]
 \begin{center}
 \includegraphics[width=150mm]{out_net_p5n5.png}
@@ -477,43 +477,41 @@ In the case of phase 5, even if the number of digits increases after getting the
 \end{figure*}
 
 \section {Conclusion}
-\subsection {Summary and Significance in this study}
-In this research, we proposed Network Programming for Generalization (NP4G).
-By using NP4G, we just select and connect nodes at random, but we confirmed that we can acquire a bitwise NOT operation program from several training data.
+\subsection {Summary and Significance of this study}
+In this study, we proposed Network Programming for Generalization (NP4G).
+We confirmed that NP4G could acquire a bitwise NOT operation program from several training data just by selecting and connecting nodes at random.
 NP4G is an inductive inference because it is a method of finding general properties from several examples.
-In addition, it has a structure that satisfies the conditions of the structured theorem of "sequence", "selection", and "iteration" in programming, and it is a method that can be expected to automatically acquire arbitrary programs by inductive inference.
+In addition, it has a structure that satisfies the conditions of the structure theorem of "sequence", "selection", and "iteration" for programming, and it is a method that can be expected to automatically acquire arbitrary programs by inductive inference.
 Network programming, not limited to genetic methods, demonstrated by NP4G is expected to be widely applied in new fields as a new automatic programming method.
-The significance of this research is that it shows that the realization of versatile and flexible artificial intelligence can be expected. The artificial intelligence is that learns by itself from all kinds of knowledge through network programming, and makes logical inferences and answers to other problems by making use of that content.
+The significance of this study is that it shows the expected realization of versatile and flexible artificial intelligence which can learn by itself from all kinds of knowledge through network programming, and make logical inferences and answer to other problems by making use of that content.
 
-\subsection {Issues}
+\subsection {Future Issues}
 \subsubsection {Turing Completeness}
-We explained that NP4G satisfies the conditions of the structured theorem, but in order to prove that NP4G is a method that can obtain arbitrary programs, it is necessary to show that NP4G is Turing complete.
+We explained that NP4G satisfies the conditions of the structure theorem, but in order to prove that NP4G is a method that can obtain arbitrary programs, it is necessary to show that NP4G is Turing complete.
 Turing completeness means that a computational model has computational power equivalent to that of a universal Turing machine, that is, it can reproduce arbitrary programs.
 If it can be shown to be Turing completeness, it means that we have realized a method that can acquire arbitrary programs by inductive inference.
 In addition to a bitwise NOT operation program, it is necessary to actually try whether other programs can be built automatically using NP4G.
 
-\subsubsection {Grouping for a Search Technique}
+\subsubsection {Exploring Search Methods}
 In this research, we used accidental search by random generation as a network search method.
 Since this method is primitive, the more types and numbers of nodes used, and the more complex the target program, the more time it takes to search.
-In the future, by combining with other learning methods such as using reinforcement learning, it is necessary to automatically adjust the types and numbers of nodes suitable for network components and how to combine them, and to improve the efficiency of network construction.
+In the future, by combining with other learning methods such as using reinforcement learning, it is necessary to automatically adjust the types and numbers of nodes suitable for network components and how to combine them in order to improve the efficiency of network construction.
 
 \subsubsection {Evaluation of the Network}
 Other learning methods, such as genetic methods and reinforcement learning, have a mechanism to numerically evaluate generated networks and models using evaluation functions.
-In this research, it is an evaluation whether or not the target network is generated, and numerical evaluation by the evaluation function is not possible.
+In this research, it is an evaluation whether or not the target network is generated, and a numerical evaluation by a evaluation function has not yet been performed.
 In the future, if we can establish a network evaluation method in NP4G, we can change the construction method by evaluating the network.
 In addition, it becomes easy to combine with other learning methods that use evaluation functions.
 
-\subsubsection {Simplification of the Network}
-As explained in \ref{sec:sequence}, even if there is a node in the network in NP4G, if it is not a node derived from the start node, the node will not be executed.
+\subsubsection {Simplification of Generated Networks}
+As explained in \ref{sec:sequence}, in a network generated by NP4G, if a node is not derived from the start node, it is not executed.
 If there is an algorithm to remove such nodes after generating the network, the generated network can be simplified.
 
 \section*{Acknowledgments}
 This research was supported by JST SPRING, Grant Number JPMJSP2130.
 
-
 %Bibliography
 \bibliographystyle{unsrt}  
 \bibliography{btx_np4g_en}  
-
 
 \end{document}
