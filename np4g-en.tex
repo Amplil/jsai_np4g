@@ -68,11 +68,10 @@
 
 % 2022/11/15 YW divided into paragraphs.
 \begin{abstract}
- Automatic programming has been actively studied for a long time by various approaches including genetic programming. 
- In recent years, automatic programming using neural networks such as GPT-3 has been actively studied and is attracting a lot of attention. 
- However, these methods are illogical inference based on experience by enormous learning, and their thinking process is unclear. 
- Even using the method by logical inference with a clear thinking process, the system that automatically generates any programs has not yet been realized. 
- Especially, the inductive inference generalized by logical inference from one example is an important issue that the artificial intelligence can acquire knowledge by itself.
+In recent years, the development of Artificial Intelligence systems using neural network has been remarkable. 
+However, this method has low explainability and illogical.
+To solve this, there is an automatic programming method based on inductive inference.
+However, it still has the problem of low versatility.
  
  In this study, we propose NP4G: Network Programming for Generalization, which can automatically generate programs by inductive inference. 
 Because the proposed method can realize "sequence", "selection", and "iteration" in programming and can satisfy the conditions of the structured program theorem, it is expected that NP4G is a method automatically acquire any programs by inductive inference.
@@ -88,10 +87,14 @@ Because the proposed method can realize "sequence", "selection", and "iteration"
 
 \footnotetext[1]{https://github.com/Amplil/np4g}
 \section{Introduction}
-Automatic programming has been actively studied for a long time by various approaches including genetic programming.
-In recent years, automatic programming using neural networks such as GPT-3\cite{gpt3} has been actively studied and is attracting a lot of attention.
-However, these methods are illogical inference based on experience by enormous learning, and their thinking process is unclear.
-Even using the method by logical inference with a clear thinking process, the system that automatically generates any programs has not yet been realized.
+Along with the development of technology, artificial intelligence (AI) systems has evolved rapidly and is now widely used in all fields.
+Recently, the performance of AI has greatly improved due to the development of a technology called deep learning based on neural networks.
+While this method can acquire advanced recognition ability by learning a large amount of data, the entity of the model is nothing more than a computational model that obtains results by performing calculation processing. 
+So, this method has low explainability.
+In addition, there is no guarantee that a model that fully matches the data used for training can be created.
+In order to solve this problems, it is necessary to create a model that generalizes to a concept that encompasses all of individual training data.
+This can be rephrased as an automatic programming method based on logical inference.
+However, Automatic Programming methods based on inductive inference still have problems due to their low versatility.
 
 %Because need to extract the structure of some kind of solutions to the problem comes out to realize automatic programming by this logical reasoning, it is the related field that is deep with the acquirement of knowledge of the artificial intelligence.
 In order to realize automatic programming based on this logical inference, it is necessary to extract the structure of some kind of solutions to the problem, so that this field is closely related to the knowledge acquisition of artificial intelligence.
@@ -172,10 +175,10 @@ In the future, similar to GP/GNP, it is expected to be extended to effective alg
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=80mm]{summary.png}
+\includegraphics[width=80mm]{summary2.png}
 \end{center}
 %\capwidth=80mm %
-\caption {Generalization from teacher data}
+\caption {Generalization from training data}
 \label{fig:summary}
 \end{figure}
 
